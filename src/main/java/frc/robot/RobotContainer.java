@@ -14,15 +14,17 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.BalanceCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.util.List;
 
 public class RobotContainer {
@@ -32,6 +34,12 @@ public class RobotContainer {
   //Subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
+  //Commands
+  private final BalanceCommand m_balanceCommand = new BalanceCommand(m_robotDrive);
+
+  //Triggers
+  Trigger yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  
   public RobotContainer() {
     configureButtonBindings();
 
@@ -46,10 +54,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
+        yButton.whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
   }
 
   public Command getAutonomousCommand() {
