@@ -21,6 +21,7 @@ import frc.robot.commands.BalanceCommand;
 import frc.robot.subsystems.DriveSubsystem;
 // import frc.robot.subsystems.test;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,19 +30,22 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.List;
 
 public class RobotContainer {
- 
+
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  //Subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-//    test m_test = new test();
+  // Subsystems
+  DriveSubsystem m_robotDrive = new DriveSubsystem();
+  // test m_test = new test();
 
-  //Commands
+  // Commands
   private final BalanceCommand m_balanceCommand = new BalanceCommand(m_robotDrive);
 
-  //Triggers
+  // Triggers
   Trigger yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  
+  Trigger xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+
+  Trigger resetHeading = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+
   public RobotContainer() {
     configureButtonBindings();
 
@@ -56,7 +60,9 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-        yButton.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+    yButton.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+    resetHeading.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
+    // xButton.onTrue(m_balanceCommand);
   }
 
   public Command getAutonomousCommand() {
