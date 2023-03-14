@@ -50,7 +50,7 @@ public class WristSubsystem extends SubsystemBase {
     setpoint = pose;
   }
 
-   public void calculateWrist(){
+  public void calculateWrist(){
     double output;
 
     if(setpoint > talon.getSelectedSensorPosition()) //less than?
@@ -63,16 +63,13 @@ public class WristSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("WRIST Setpoint", setpoint);
   }
 
-
   public void resetEncoder(){
     talon.setSelectedSensorPosition(0);
   }
-
+  
   @Override
   public void periodic(){
    calculateWrist();
   }
-
- 
 
 }

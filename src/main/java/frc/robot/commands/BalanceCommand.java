@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class BalanceCommand extends CommandBase {
-
+    //Gyro
     private final DriveSubsystem driveSubsystem;
     private final PIDController pidController = new PIDController(0.2, 0, 0.1);
     double setPoint;

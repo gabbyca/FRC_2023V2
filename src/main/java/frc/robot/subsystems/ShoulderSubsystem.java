@@ -69,8 +69,9 @@ public class ShoulderSubsystem extends SubsystemBase {
   public void moveArm(double pose) {
     m_pidController.setSetpoint(pose);
     setpoint = pose;
-}
-   public void calculate(){
+ }
+
+  public void calculate(){
     double output;
     if(setpoint < encoder.getDistance()) 
         output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower);
@@ -82,12 +83,9 @@ public class ShoulderSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("SHOULDER Setpoint", setpoint);
   }
 
-
    @Override
-   public void periodic(){
+  public void periodic(){
     calculate();
    }
-
-
 
 }
