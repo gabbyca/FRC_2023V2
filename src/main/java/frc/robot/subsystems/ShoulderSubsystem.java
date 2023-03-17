@@ -1,10 +1,9 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
@@ -14,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShoulderSubsystem extends SubsystemBase {
     
-    private final TalonSRX m_Lead;
-    private final TalonSRX m_Follow;
+    private final CANSparkMax m_Lead;
+    private final CANSparkMax m_Follow;
     Encoder encoder;
     double currentShoulderDistance; 
     PIDController m_pidController; 
@@ -26,22 +25,16 @@ public class ShoulderSubsystem extends SubsystemBase {
     double maxPower = 0.4;
 
   public ShoulderSubsystem(){
-      TalonSRXConfiguration config = new TalonSRXConfiguration();
-      config.peakCurrentLimit = 133;
-      config.peakCurrentDuration = 1500;
-      config.continuousCurrentLimit = 120;
       
-      m_Lead = new TalonSRX(7);
-      m_Lead.configAllSettings(config);
+      m_Lead = new CANSparkMax(0, MotorType.kBrushed);
       m_Lead.setInverted(true);
      
-      m_Follow =  new TalonSRX(8);
-      m_Follow.configAllSettings(config);
+      m_Follow =  new CANSparkMax(0, MotorType.kBrushed);
+      m_Follow.setInverted(false);
       m_Follow.follow(m_Lead);
-      m_Follow.setInverted(InvertType.FollowMaster); //might have to change
 
-      m_Lead.setNeutralMode(NeutralMode.Brake);
-      m_Follow.setNeutralMode(NeutralMode.Brake);
+      m_Lead.setIdleMode(IdleMode.kBrake);
+      m_Follow.setIdleMode(IdleMode.kBrake);
 
       encoder = new Encoder(0, 1, true, Encoder.EncodingType.k2X);
       encoder.setDistancePerPulse(1.0);
@@ -62,7 +55,7 @@ public class ShoulderSubsystem extends SubsystemBase {
   }
 
   public void motorZero(){
-    m_Lead.set(TalonSRXControlMode.PercentOutput, 0);
+    m_Lead.set(0);
     m_pidController.setSetpoint(0);
   }
 
@@ -78,7 +71,7 @@ public class ShoulderSubsystem extends SubsystemBase {
     else
         output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower) * 0.2;
     
-    m_Lead.set(TalonSRXControlMode.PercentOutput, output);
+    m_Lead.set(output);
     SmartDashboard.putNumber("SHOULDER Output", output);
     SmartDashboard.putNumber("SHOULDER Setpoint", setpoint);
   }

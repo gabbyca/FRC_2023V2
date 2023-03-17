@@ -1,18 +1,17 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class WristSubsystem extends SubsystemBase {
     
-  private final TalonSRX talon; 
+  private final CANSparkMax m_motor; 
   double wristEncoderDistance; 
   PIDController m_pidController; 
 
@@ -23,24 +22,26 @@ public class WristSubsystem extends SubsystemBase {
   double kI = 0.00; 
   double kD = 0.0;  
 
+  Encoder encoder; 
+
+
   public WristSubsystem(){
-    TalonSRXConfiguration config = new TalonSRXConfiguration();
-    config.peakCurrentLimit = 133;
-    config.peakCurrentDuration = 1500;
-    config.continuousCurrentLimit = 120;
-     
-    talon =  new TalonSRX(12);
-    talon.setSelectedSensorPosition(0.0);
-    talon.set(TalonSRXControlMode.Position, 0);
+    m_motor =  new CANSparkMax(0, MotorType.kBrushed); 
+    // m_motor.setSelectedSensorPosition(0);
+    m_motor.set(0);
 
     m_pidController = new PIDController(kP, kI, kD);
     m_pidController.setTolerance(5, 10);
     m_pidController.setSetpoint(0);
+
+    encoder = new Encoder(0, 1, true, Encoder.EncodingType.k2X);
+    encoder.setDistancePerPulse(1.0);
+    encoder.reset();
     
   }
 
   public double getWristEncoderDistance(){
-    wristEncoderDistance = talon.getSelectedSensorPosition();
+    wristEncoderDistance = encoder.getDistance();
     SmartDashboard.putNumber("WristDistance", wristEncoderDistance);
     return wristEncoderDistance; 
   }
@@ -53,18 +54,18 @@ public class WristSubsystem extends SubsystemBase {
   public void calculateWrist(){
     double output;
 
-    if(setpoint > talon.getSelectedSensorPosition()) //less than?
-        output = MathUtil.clamp(m_pidController.calculate(talon.getSelectedSensorPosition()), -maxPower, maxPower);
+    if(setpoint > encoder.getDistance()) //less than?
+        output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower);
     else
-        output = MathUtil.clamp(m_pidController.calculate(talon.getSelectedSensorPosition()), -maxPower, maxPower) * 0.6;
+        output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower) * 0.6;
     
-    talon.set(TalonSRXControlMode.PercentOutput, output);
+    m_motor.set(output);
     SmartDashboard.putNumber("WRIST Output", output);
     SmartDashboard.putNumber("WRIST Setpoint", setpoint);
   }
 
   public void resetEncoder(){
-    talon.setSelectedSensorPosition(0);
+    encoder.reset();
   }
   
   @Override
