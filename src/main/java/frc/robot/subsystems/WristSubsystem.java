@@ -27,7 +27,6 @@ public class WristSubsystem extends SubsystemBase {
 
   public WristSubsystem(){
     m_motor =  new CANSparkMax(0, MotorType.kBrushed); 
-    // m_motor.setSelectedSensorPosition(0);
     m_motor.set(0);
 
     m_pidController = new PIDController(kP, kI, kD);

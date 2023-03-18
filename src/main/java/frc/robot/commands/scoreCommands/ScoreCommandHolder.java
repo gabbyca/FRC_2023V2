@@ -20,27 +20,27 @@ public class ScoreCommandHolder extends CommandBase {
         this.intake = intake; 
     }
 
-    public SequentialCommandGroup scoreConeLow(){
+    public SequentialCommandGroup coneLow(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
-    public SequentialCommandGroup scoreConeMiddle(){
+    public SequentialCommandGroup coneMiddle(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
-    public SequentialCommandGroup scoreConeHigh(){
+    public SequentialCommandGroup coneHigh(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
-    public SequentialCommandGroup scoreCubeLow(){
+    public SequentialCommandGroup cubeLow(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
-    public SequentialCommandGroup scoreCubeMiddle(){
+    public SequentialCommandGroup cubeMiddle(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
-    public SequentialCommandGroup scoreCubeHigh(){
+    public SequentialCommandGroup cubeHigh(){
         return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
     }
 
@@ -53,10 +53,10 @@ public class ScoreCommandHolder extends CommandBase {
     }
 
     public SequentialCommandGroup getHumanPlayerShelf(){
-        return new SequentialCommandGroup();
+          return new SequentialCommandGroup(new Intake(intake, 1, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
     }
     
     public SequentialCommandGroup getGround(){
-        return new SequentialCommandGroup();
+         return new SequentialCommandGroup(new Intake(intake, 1, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
     }
 }
