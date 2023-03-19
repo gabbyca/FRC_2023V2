@@ -1,15 +1,15 @@
 package frc.robot.commands.autoCommandHolder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShoulderSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 
 public class moveShoulder extends CommandBase{
 
-    private final ShoulderSubsystem shoulderSub;
+    private final ArmSubsystem shoulderSub;
     private final double shoulderSetpoint;
     private final double TOLERANCE = 100; //might change
 
-    public moveShoulder(ShoulderSubsystem shoulderSub, double shoulderSetpoint){
+    public moveShoulder(ArmSubsystem shoulderSub, double shoulderSetpoint){
         this.shoulderSub = shoulderSub; 
         this.shoulderSetpoint = shoulderSetpoint;
         addRequirements(shoulderSub);

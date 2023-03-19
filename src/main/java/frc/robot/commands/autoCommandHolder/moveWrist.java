@@ -6,23 +6,23 @@ import frc.robot.subsystems.WristSubsystem;
 public class moveWrist extends CommandBase{
 
     private final WristSubsystem wristSub;
-    private final double wristSetpoint;
+    private final double setpoint;
     private final double TOLERANCE = 100; //might change
 
-    public moveWrist(WristSubsystem wristSub, double wristSetpoint){
+    public moveWrist(WristSubsystem wristSub, double setpoint){
         this.wristSub = wristSub; 
-        this.wristSetpoint = wristSetpoint;
+        this.setpoint = setpoint;
         addRequirements(wristSub);
     }
 
     @Override 
     public void initialize(){
-       wristSub.moveWrist(wristSetpoint);
+       wristSub.moveWrist(setpoint);
     }
 
     @Override 
     public boolean isFinished(){
-       return wristSub.getWristEncoderDistance() < wristSetpoint + TOLERANCE && wristSub.getWristEncoderDistance() > wristSetpoint - TOLERANCE;
+       return wristSub.getDistance() < setpoint + TOLERANCE && wristSub.getDistance() > setpoint - TOLERANCE;
     }
     
 }

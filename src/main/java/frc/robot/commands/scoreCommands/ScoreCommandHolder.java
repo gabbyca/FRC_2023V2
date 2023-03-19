@@ -2,61 +2,64 @@ package frc.robot.commands.scoreCommands;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autoCommandHolder.moveWrist;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShoulderSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class ScoreCommandHolder extends CommandBase {
 
     private final WristSubsystem wrist;
-    private final ShoulderSubsystem shoulder;
+    private final ArmSubsystem shoulder;
     private final IntakeSubsystem intake; 
 
-    public ScoreCommandHolder(ShoulderSubsystem shoulder, WristSubsystem wrist, IntakeSubsystem intake){
+    public ScoreCommandHolder(ArmSubsystem shoulder, WristSubsystem wrist, IntakeSubsystem intake){
         this.shoulder = shoulder;
         this.wrist = wrist; 
         this.intake = intake; 
     }
 
-    public SequentialCommandGroup coneLow(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
+    // position to score
+    public ParallelCommandGroup cargoLow(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10));
     }
+    public ParallelCommandGroup coneMiddle(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100));
+    }
+    public ParallelCommandGroup coneHigh(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000));
+    }
+    public ParallelCommandGroup cubeMiddle(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100));
+    }
+    public ParallelCommandGroup cubeHigh(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000));
+    }
+    // positionto score
 
-    public SequentialCommandGroup coneMiddle(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
-    }
 
-    public SequentialCommandGroup coneHigh(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
-    }
+    // release cargo
+    // public SequentialCommandGroup scoreCone(){
+    //     return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
+    // }
+    // public SequentialCommandGroup scoreCube(){
+    //     return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
+    // }
+    // // release cargo 
 
-    public SequentialCommandGroup cubeLow(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
-    }
 
-    public SequentialCommandGroup cubeMiddle(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
-    }
+    // // retrieve cargo
+    // public SequentialCommandGroup getHumanPlayerGround(){
+    //     return new SequentialCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10), new Intake(intake, 1, false), new IntakeHold(intake, .1, false));
+    // }
+    // public SequentialCommandGroup getHumanPlayerShelf(){
+    //       return new SequentialCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100), new Intake(intake, 1, false), new IntakeHold(intake, 0.1, false));
+    // }
+    // public SequentialCommandGroup getGround(){
+    //      return new SequentialCommandGroup(new MoveArm(shoulder, 1), new moveWrist(wrist, 1), new Intake(intake, 1, true), new IntakeHold(intake, 0.1, false));
+    // }
+    // retrieve cargo
 
-    public SequentialCommandGroup cubeHigh(){
-        return new SequentialCommandGroup(new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000));
-    }
-
-    public SequentialCommandGroup scoreCone(){
-        return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
-    }
-
-    public SequentialCommandGroup getHumanPlayerGround(){
-        return new SequentialCommandGroup(new Intake(intake, 1, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
-    }
-
-    public SequentialCommandGroup getHumanPlayerShelf(){
-          return new SequentialCommandGroup(new Intake(intake, 1, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
-    }
-    
-    public SequentialCommandGroup getGround(){
-         return new SequentialCommandGroup(new Intake(intake, 1, true), new MoveShoulder(shoulder, 1000), new moveWrist(wrist, 10000), new Intake(intake, 0.2, false));
-    }
 }

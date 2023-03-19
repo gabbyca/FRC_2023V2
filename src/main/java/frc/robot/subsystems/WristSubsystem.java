@@ -12,18 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class WristSubsystem extends SubsystemBase {
     
   private final CANSparkMax m_motor; 
-  double wristEncoderDistance; 
   PIDController m_pidController; 
-
-  double setpoint = 0.0; 
-  double maxPower = 0.4;
-
+  Encoder encoder; 
+  double currentWristDistance; 
   double kP = 0.00001; 
   double kI = 0.00; 
   double kD = 0.0;  
-
-  Encoder encoder; 
-
+  double setpoint = 0.0; 
+  double maxPower = 0.4;
 
   public WristSubsystem(){
     m_motor =  new CANSparkMax(0, MotorType.kBrushed); 
@@ -39,10 +35,14 @@ public class WristSubsystem extends SubsystemBase {
     
   }
 
-  public double getWristEncoderDistance(){
-    wristEncoderDistance = encoder.getDistance();
-    SmartDashboard.putNumber("WristDistance", wristEncoderDistance);
-    return wristEncoderDistance; 
+  public double getDistance(){
+    currentWristDistance = encoder.getDistance();
+    SmartDashboard.putNumber("WristDistance", currentWristDistance);
+    return currentWristDistance; 
+  }
+
+  public void resetEncoder(){
+    encoder.reset();
   }
 
   public void moveWrist(double pose){
@@ -50,26 +50,22 @@ public class WristSubsystem extends SubsystemBase {
     setpoint = pose;
   }
 
-  public void calculateWrist(){
+  public void calculate(){
     double output;
-
-    if(setpoint > encoder.getDistance()) //less than?
+    if(setpoint > encoder.getDistance())
         output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower);
     else
         output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower) * 0.6;
     
-    m_motor.set(output);
-    SmartDashboard.putNumber("WRIST Output", output);
-    SmartDashboard.putNumber("WRIST Setpoint", setpoint);
+        m_motor.set(output);
+
+    // SmartDashboard.putNumber("WRIST Output", output);
+    // SmartDashboard.putNumber("WRIST Setpoint", setpoint);
   }
 
-  public void resetEncoder(){
-    encoder.reset();
-  }
-  
   @Override
   public void periodic(){
-   calculateWrist();
+   calculate();
   }
 
 }

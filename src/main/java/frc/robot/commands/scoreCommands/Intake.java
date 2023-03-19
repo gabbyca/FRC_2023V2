@@ -1,8 +1,8 @@
 package frc.robot.commands.scoreCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
-
 
 
 public class Intake extends CommandBase{
@@ -10,6 +10,7 @@ public class Intake extends CommandBase{
     private final IntakeSubsystem intakeSub;
     private final double speed; 
     private final boolean inverted; 
+    private double startTime; 
     
     public Intake(IntakeSubsystem intakeSub, double speed, boolean inverted){
         this.intakeSub = intakeSub; 
@@ -20,13 +21,14 @@ public class Intake extends CommandBase{
 
     @Override 
     public void initialize(){
+      startTime = Timer.getFPGATimestamp();
       intakeSub.intake(speed, inverted);
     }
 
     @Override 
     public boolean isFinished(){
-    return false; 
+      return Timer.getFPGATimestamp() - startTime > 2; //may change time
+  
     }
   
-    
 }

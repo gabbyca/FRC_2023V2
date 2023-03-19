@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -12,11 +14,10 @@ public class IntakeSubsystem extends SubsystemBase {
   boolean inverted = false;
   double speed = 0; 
   boolean fast = true; 
-  double currentLimit = 0; 
-  double coneInLimit = 1000; //limit when a cone is in
-  double cubeInLimit = 1000; //limit when a cube is in 
+  double current = 0; 
+  double coneInCurrent = 1000; //limit when a cone is in
+  double cubeInCurrent = 1000; //limit when a cube is in 
   
-
 
   public IntakeSubsystem(){
      m_intake = new CANSparkMax(0, MotorType.kBrushless); //ensure brushless
@@ -30,7 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intake(double speed, boolean inverted){
     this.speed = speed; 
     this.inverted = inverted; 
-    if(isCargo()){
+    if(!isCargo()){
       speed = .1; 
     }
     m_intake.setInverted(inverted);
@@ -38,25 +39,24 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isCargo(){
-    if(currentLimit > coneInLimit || currentLimit > cubeInLimit){
+    if(current >= coneInCurrent || current >= cubeInCurrent){
       fast = false; 
     }
-   return fast;  
+    else fast = true; 
+   
+    return fast;  
   }
 
-  public double getCurrentLimit(){
-    currentLimit = m_intake.getOutputCurrent(); 
-    return currentLimit; 
+  public double getCurrent(){
+    current = m_intake.getOutputCurrent(); 
+    SmartDashboard.putNumber("current", current);
+    return current; 
   }
-
+ 
   @Override
   public void periodic(){
-    getCurrentLimit();
+    getCurrent();
     isCargo(); 
-    
    }
-
-
-
 
 }

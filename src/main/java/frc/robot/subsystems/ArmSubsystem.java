@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class ShoulderSubsystem extends SubsystemBase {
+public class ArmSubsystem extends SubsystemBase {
     
     private final CANSparkMax m_Lead;
     private final CANSparkMax m_Follow;
@@ -24,7 +24,7 @@ public class ShoulderSubsystem extends SubsystemBase {
     double setpoint = 0.0; 
     double maxPower = 0.4;
 
-  public ShoulderSubsystem(){
+  public ArmSubsystem(){
       
       m_Lead = new CANSparkMax(0, MotorType.kBrushed);
       m_Lead.setInverted(true);
@@ -46,7 +46,7 @@ public class ShoulderSubsystem extends SubsystemBase {
 
   public double getDistance(){
     currentShoulderDistance = encoder.getDistance();
-    SmartDashboard.putNumber("ShoulderDistance", currentShoulderDistance);
+    SmartDashboard.putNumber("ArmDist", currentShoulderDistance);
     return currentShoulderDistance;
   }
    
@@ -72,8 +72,8 @@ public class ShoulderSubsystem extends SubsystemBase {
         output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower) * 0.2;
     
     m_Lead.set(output);
-    SmartDashboard.putNumber("SHOULDER Output", output);
-    SmartDashboard.putNumber("SHOULDER Setpoint", setpoint);
+    // SmartDashboard.putNumber("Arm Output", output);
+    // SmartDashboard.putNumber("Arm Setpoint", setpoint);
   }
 
    @Override
