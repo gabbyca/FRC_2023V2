@@ -13,7 +13,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CANSparkMax m_intake;
   boolean inverted = false;
   double speed = 0; 
-  boolean fast = true; 
   double current = 0; 
   double coneInCurrent = 1000; //limit when a cone is in
   double cubeInCurrent = 1000; //limit when a cube is in 
@@ -28,11 +27,12 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intake.set(0);
   }
 
-  public void intake(double speed, boolean inverted){
+  public void intake(double speed, boolean inverted){ //true is release
     this.speed = speed; 
     this.inverted = inverted; 
-    if(!isCargo()){
+    if(isCargo() && !inverted){
       speed = .1; 
+      inverted = false; 
     }
     m_intake.setInverted(inverted);
     m_intake.set(speed);
@@ -40,11 +40,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean isCargo(){
     if(current >= coneInCurrent || current >= cubeInCurrent){
-      fast = false; 
+      return true; 
     }
-    else fast = true; 
-   
-    return fast;  
+
+    return false; 
   }
 
   public double getCurrent(){
