@@ -22,7 +22,7 @@ public class ScoreCommandHolder extends CommandBase {
     }
 
     // position to score
-    public ParallelCommandGroup cargoLow(){
+    public ParallelCommandGroup compactPosition(){
         return new ParallelCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10));
     }
     public ParallelCommandGroup coneMiddle(){
@@ -37,20 +37,17 @@ public class ScoreCommandHolder extends CommandBase {
     public ParallelCommandGroup cubeHigh(){
         return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000));
     }
-    // positionto score
+    // position to score
 
 
     // release cargo
-    // public SequentialCommandGroup scoreCone(){
-    //     return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
-    // }
-    // public SequentialCommandGroup scoreCube(){
-    //     return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
-    // }
-    // // release cargo 
+    public SequentialCommandGroup releaseScore(){
+        return new SequentialCommandGroup(new Intake(intake, 0.6, true), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
+    }
+    // release cargo 
 
 
-    // // retrieve cargo
+    // retrieve cargo
     // public SequentialCommandGroup getHumanPlayerGround(){
     //     return new SequentialCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10), new Intake(intake, 1, false), new IntakeHold(intake, .1, false));
     // }
