@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -13,7 +13,7 @@ public class WristSubsystem extends SubsystemBase {
     
   private final CANSparkMax m_motor; 
   PIDController m_pidController; 
-  Encoder encoder; 
+  RelativeEncoder encoder; 
   double currentWristDistance; 
   double kP = 0.00001; 
   double kI = 0.00; 
@@ -29,20 +29,18 @@ public class WristSubsystem extends SubsystemBase {
     m_pidController.setTolerance(5, 10);
     m_pidController.setSetpoint(0);
 
-    encoder = new Encoder(0, 1, true, Encoder.EncodingType.k2X);
-    encoder.setDistancePerPulse(1.0);
-    encoder.reset();
-    
+    encoder = m_motor.getEncoder(); 
+    encoder.setPosition(0);    
   }
 
   public double getDistance(){
-    currentWristDistance = encoder.getDistance();
+    currentWristDistance = encoder.getPosition();
     SmartDashboard.putNumber("WristDistance", currentWristDistance);
     return currentWristDistance; 
   }
 
   public void resetEncoder(){
-    encoder.reset();
+    encoder.setPosition(0);    
   }
 
   public void moveWrist(double pose){
@@ -52,10 +50,10 @@ public class WristSubsystem extends SubsystemBase {
 
   public void calculate(){
     double output;
-    if(setpoint > encoder.getDistance())
-        output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower);
+    if(setpoint > encoder.getPosition())
+        output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower);
     else
-        output = MathUtil.clamp(m_pidController.calculate(encoder.getDistance()), -maxPower, maxPower) * 0.6;
+        output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.6;
     
         m_motor.set(output);
 
