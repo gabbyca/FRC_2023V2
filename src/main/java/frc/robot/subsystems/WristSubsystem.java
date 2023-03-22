@@ -15,14 +15,16 @@ public class WristSubsystem extends SubsystemBase {
   PIDController m_pidController; 
   RelativeEncoder encoder; 
   double currentWristDistance; 
+
   double kP = 0.00001; 
   double kI = 0.00; 
   double kD = 0.0;  
   double setpoint = 0.0; 
+  
   double maxPower = 0.4;
 
   public WristSubsystem(){
-    m_motor =  new CANSparkMax(0, MotorType.kBrushed); 
+    m_motor =  new CANSparkMax(13, MotorType.kBrushed); 
     m_motor.set(0);
 
     m_pidController = new PIDController(kP, kI, kD);
@@ -57,8 +59,8 @@ public class WristSubsystem extends SubsystemBase {
     
         m_motor.set(output);
 
-    SmartDashboard.putNumber("WRIST Output", output);
-    SmartDashboard.putNumber("WRIST Setpoint", setpoint);
+   // SmartDashboard.putNumber("WRIST Output", output);
+   // SmartDashboard.putNumber("WRIST Setpoint", setpoint);
   }
 
   @Override

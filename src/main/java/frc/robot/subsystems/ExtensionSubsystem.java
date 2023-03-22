@@ -17,15 +17,17 @@ public class ExtensionSubsystem extends SubsystemBase {
     RelativeEncoder encoder;
     double currentExtensionDistance; 
     PIDController m_pidController; 
+
     double kP = 0.004; 
     double kI = 0.00; 
     double kD = 0.0001; 
     double setpoint = 0.0; 
+    
     double maxPower = 0.4;
 
   public ExtensionSubsystem(){
       
-      m_motor = new CANSparkMax(0, MotorType.kBrushed);
+      m_motor = new CANSparkMax(11, MotorType.kBrushless);
       m_motor.setIdleMode(IdleMode.kBrake);
 
       encoder = m_motor.getEncoder();
@@ -64,8 +66,9 @@ public class ExtensionSubsystem extends SubsystemBase {
         output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.2;
     
     m_motor.set(output);
-    SmartDashboard.putNumber("Extension Output", output);
-    SmartDashboard.putNumber("Extension Setpoint", setpoint);
+
+   // SmartDashboard.putNumber("Extension Output", output);
+   // SmartDashboard.putNumber("Extension Setpoint", setpoint);
   }
 
    @Override

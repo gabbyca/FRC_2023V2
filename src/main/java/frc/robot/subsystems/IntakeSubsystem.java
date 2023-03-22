@@ -14,12 +14,13 @@ public class IntakeSubsystem extends SubsystemBase {
   boolean inverted = false;
   double speed = 0; 
   double current = 0; 
+
   double coneInCurrent = 1000; //limit when a cone is in
   double cubeInCurrent = 1000; //limit when a cube is in 
   
 
   public IntakeSubsystem(){
-     m_intake = new CANSparkMax(0, MotorType.kBrushless); //ensure brushless
+     m_intake = new CANSparkMax(12, MotorType.kBrushless);
      m_intake.setIdleMode(IdleMode.kBrake);
   }
 
@@ -48,7 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public double getCurrent(){
     current = m_intake.getOutputCurrent(); 
-    SmartDashboard.putNumber("current", current);
+    SmartDashboard.putNumber("IntakeCurrent", current);
     return current; 
   }
  

@@ -17,18 +17,20 @@ public class ArmSubsystem extends SubsystemBase {
     RelativeEncoder encoder;
     double currentShoulderDistance; 
     PIDController m_pidController; 
+
     double kP = 0.004; 
     double kI = 0.00; 
     double kD = 0.0001; 
     double setpoint = 0.0; 
+    
     double maxPower = 0.4;
 
   public ArmSubsystem(){
       
-      m_Lead = new CANSparkMax(0, MotorType.kBrushed);
+      m_Lead = new CANSparkMax(9, MotorType.kBrushless);
       m_Lead.setInverted(true);
      
-      m_Follow =  new CANSparkMax(0, MotorType.kBrushed);
+      m_Follow =  new CANSparkMax(10, MotorType.kBrushless);
       m_Follow.setInverted(false);
       m_Follow.follow(m_Lead);
 
@@ -71,8 +73,9 @@ public class ArmSubsystem extends SubsystemBase {
         output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.2;
     
     m_Lead.set(output);
-    SmartDashboard.putNumber("Arm Output", output);
-    SmartDashboard.putNumber("Arm Setpoint", setpoint);
+   
+   // SmartDashboard.putNumber("Arm Output", output);
+   // SmartDashboard.putNumber("Arm Setpoint", setpoint);
   }
 
    @Override
