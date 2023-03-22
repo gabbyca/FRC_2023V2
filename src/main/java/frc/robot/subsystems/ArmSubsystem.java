@@ -81,6 +81,7 @@ public class ArmSubsystem extends SubsystemBase {
    @Override
   public void periodic(){
     calculate();
+    getDistance(); 
    }
 
 }

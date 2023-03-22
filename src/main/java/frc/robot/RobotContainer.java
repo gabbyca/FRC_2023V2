@@ -13,7 +13,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+// import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -28,13 +28,13 @@ public class RobotContainer {
   // Subsystems
   DriveSubsystem m_robotDrive = new DriveSubsystem();
   ArmSubsystem ArmSubsystem = new ArmSubsystem(); 
-  WristSubsystem WristSubsystem = new WristSubsystem(); 
+  // WristSubsystem WristSubsystem = new WristSubsystem(); 
   IntakeSubsystem IntakeSubsystem = new IntakeSubsystem(); 
   ExtensionSubsystem ExtensionSubsystem = new ExtensionSubsystem(); 
  
 
   // Commands
-  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+  // ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
   SpeedCommand slow = new SpeedCommand(2.0); 
   SpeedCommand fast = new SpeedCommand(4.8); 
 

@@ -74,6 +74,7 @@ public class ExtensionSubsystem extends SubsystemBase {
    @Override
   public void periodic(){
     calculate();
+    getDistance();
    }
 
 }

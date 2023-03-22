@@ -1,29 +1,29 @@
-package frc.robot.commands.scoreCommands;
+// package frc.robot.commands.scoreCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.WristSubsystem;
+// import edu.wpi.first.wpilibj2.command.CommandBase;
+// import frc.robot.subsystems.WristSubsystem;
 
 
-public class MoveWrist extends CommandBase{
+// public class MoveWrist extends CommandBase{
 
-    private final WristSubsystem wristSub;
-    private final double setPoint;
-    private final double TOLERANCE = 3000;
+//     private final WristSubsystem wristSub;
+//     private final double setPoint;
+//     private final double TOLERANCE = 3000;
     
-    public MoveWrist(WristSubsystem wristSub, double setpoint){
-        this.wristSub = wristSub; 
-        this.setPoint = setpoint;
-        addRequirements(wristSub);
-    }
+//     public MoveWrist(WristSubsystem wristSub, double setpoint){
+//         this.wristSub = wristSub; 
+//         this.setPoint = setpoint;
+//         addRequirements(wristSub);
+//     }
 
-    @Override 
-    public void initialize(){
-       wristSub.moveWrist(setPoint);
-    }
+//     @Override 
+//     public void initialize(){
+//        wristSub.moveWrist(setPoint);
+//     }
 
-    @Override 
-    public boolean isFinished(){
-    return wristSub.getDistance() < setPoint + TOLERANCE && wristSub.getDistance() > setPoint - TOLERANCE;
-    }
+//     @Override 
+//     public boolean isFinished(){
+//     return wristSub.getDistance() < setPoint + TOLERANCE && wristSub.getDistance() > setPoint - TOLERANCE;
+//     }
     
-}
+// }
