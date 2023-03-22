@@ -71,8 +71,8 @@ public class ArmSubsystem extends SubsystemBase {
         output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.2;
     
     m_Lead.set(output);
-    // SmartDashboard.putNumber("Arm Output", output);
-    // SmartDashboard.putNumber("Arm Setpoint", setpoint);
+    SmartDashboard.putNumber("Arm Output", output);
+    SmartDashboard.putNumber("Arm Setpoint", setpoint);
   }
 
    @Override

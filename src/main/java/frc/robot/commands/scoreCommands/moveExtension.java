@@ -3,13 +3,13 @@ package frc.robot.commands.scoreCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ExtensionSubsystem;
 
-public class Extension extends CommandBase{
+public class moveExtension extends CommandBase{
 
     private final ExtensionSubsystem extensionSub; 
     private final double setPoint;
     private final double TOLERANCE = 100; //might change
 
-    public Extension(ExtensionSubsystem extensionSub, double setpoint){
+    public moveExtension(ExtensionSubsystem extensionSub, double setpoint){
         this.extensionSub = extensionSub; 
         this.setPoint = setpoint;
         addRequirements(extensionSub);

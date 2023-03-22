@@ -24,28 +24,43 @@ public class ScoreCommandHolder extends CommandBase {
         this.extension = extension; 
     }
 
+   
+    public  ParallelCommandGroup testArm(){
+        return new ParallelCommandGroup(new MoveArm(shoulder, 10));
+    }
+
+    public  ParallelCommandGroup testWrist(){
+        return new ParallelCommandGroup(new moveWrist(wrist, 10));
+    }
+
+    public  ParallelCommandGroup testExtension(){
+        return new ParallelCommandGroup(new moveExtension(extension, 10));
+    }
+
+
+
     // position to score
     public ParallelCommandGroup compactPosition(){
-        return new ParallelCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10), new Extension(extension, 0));
+        return new ParallelCommandGroup(new MoveArm(shoulder, 10), new moveWrist(wrist, 10), new moveExtension(extension, 0));
     }
     public ParallelCommandGroup coneMiddle(){
-        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100), new Extension(extension, 100));
+        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100), new moveExtension(extension, 100));
     }
     public ParallelCommandGroup coneHigh(){
-        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000), new Extension(extension, 1000));
+        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000), new moveExtension(extension, 1000));
     }
     public ParallelCommandGroup cubeMiddle(){
-        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100), new Extension(extension, 100));
+        return new ParallelCommandGroup(new MoveArm(shoulder, 100), new moveWrist(wrist, 100), new moveExtension(extension, 100));
     }
     public ParallelCommandGroup cubeHigh(){
-        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000), new Extension(extension, 1000));
+        return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new moveWrist(wrist, 1000), new moveExtension(extension, 1000));
     }
     // position to score
 
 
     // release cargo
     public SequentialCommandGroup releaseScore(){
-        return new SequentialCommandGroup(new Intake(intake, 0.6, true), new Extension(extension, 0), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
+        return new SequentialCommandGroup(new Intake(intake, 0.6, true), new moveExtension(extension, 0), new MoveArm(shoulder, 1), new moveWrist(wrist, 1));
     }
     // release cargo 
 

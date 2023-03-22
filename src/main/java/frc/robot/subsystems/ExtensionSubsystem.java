@@ -64,8 +64,8 @@ public class ExtensionSubsystem extends SubsystemBase {
         output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.2;
     
     m_motor.set(output);
-    // SmartDashboard.putNumber("Extension Output", output);
-    // SmartDashboard.putNumber("Extension Setpoint", setpoint);
+    SmartDashboard.putNumber("Extension Output", output);
+    SmartDashboard.putNumber("Extension Setpoint", setpoint);
   }
 
    @Override

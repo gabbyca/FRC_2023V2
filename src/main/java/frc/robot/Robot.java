@@ -62,6 +62,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.m_robotDrive.getRoll();
+
+    //for testing ensure can read encoder values
+    m_robotContainer.ExtensionSubsystem.getDistance();  
+    m_robotContainer.WristSubsystem.getDistance(); 
+    m_robotContainer.ArmSubsystem.getDistance(); 
+    
   }
 
   @Override

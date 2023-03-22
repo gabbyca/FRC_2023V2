@@ -57,8 +57,8 @@ public class WristSubsystem extends SubsystemBase {
     
         m_motor.set(output);
 
-    // SmartDashboard.putNumber("WRIST Output", output);
-    // SmartDashboard.putNumber("WRIST Setpoint", setpoint);
+    SmartDashboard.putNumber("WRIST Output", output);
+    SmartDashboard.putNumber("WRIST Setpoint", setpoint);
   }
 
   @Override
