@@ -32,10 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
       m_Lead = new CANSparkMax(9, MotorType.kBrushless);     
       m_Follow =  new CANSparkMax(10, MotorType.kBrushless);
       
-      m_Follow.follow(m_Lead);
-
-      // m_Lead.setInverted(true);
-      m_Follow.setInverted(true);
+      m_Follow.follow(m_Lead, true);
 
       m_Lead.setIdleMode(IdleMode.kCoast);
       m_Follow.setIdleMode(IdleMode.kCoast);

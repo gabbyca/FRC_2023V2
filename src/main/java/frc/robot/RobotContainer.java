@@ -43,13 +43,17 @@ public class RobotContainer {
   Trigger aButton = m_driverController.a();
   Trigger lBumper = m_driverController.leftBumper();
   Trigger rBumper = m_driverController.rightBumper();
+  Trigger leftStick = m_driverController.leftStick(); 
+  Trigger rightStick = m_driverController.rightStick(); 
+  Trigger lShoulder = m_driverController.leftTrigger(); 
+
   
   Trigger dPadLeftco = m_coDriverController.povLeft(); 
   Trigger dPadRightco = m_coDriverController.povRight(); 
-  Trigger aButtonCo = m_coDriverController.a();
-  Trigger bButtonCo = m_coDriverController.b();
-  Trigger yButtonCo = m_coDriverController.y();
-  Trigger xButtonCo = m_coDriverController.x();
+  Trigger aButtonco = m_coDriverController.a();
+  Trigger bButtonco = m_coDriverController.b();
+  Trigger yButtonco = m_coDriverController.y();
+  Trigger xButtonco = m_coDriverController.x();
   
 
 // testing section
@@ -75,21 +79,29 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //DRIVER
-    aButton.onTrue(commands.compactPosition());
-    xButton.onTrue(commands.coneMiddle()); 
+    bButton.onTrue(commands.coneMiddle()); 
     yButton.onTrue(commands.coneHigh());
+    aButton.onTrue(commands.cubeMiddle());
+    xButton.onTrue(commands.cubeHigh());
+    leftStick.onTrue(commands.getHumanPlayerShelf());
+    rightStick.onTrue(commands.getHumanPlayerGround());
+    lBumper.onTrue(commands.releaseScore());
+    lShoulder.onTrue(commands.getGround());
+    //right rightbumber fast/slow
+
 
     //CO-DRIVER
     dPadLeftco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
     dPadRightco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
+    aButtonco.onTrue(commands.compactPosition());
 
 
     //testing section
-    dUp.whileTrue(out); 
-    dDown.whileTrue(in); 
-    bButton.whileTrue(stop); 
+    // dUp.whileTrue(out); 
+    // dDown.whileTrue(in); 
+    // bButton.whileTrue(stop); 
     // aButtonCo.onTrue(commands.testArm()); 
-    // // bButtonCo.onTrue(commands.testExtension()); 
+    // bButtonCo.onTrue(commands.testExtension()); 
     // yButtonCo.onTrue(commands.testWrist());
     // xButton.onTrue(commands.coneMiddle());
     // aButtonCo.onTrue(commands.compactPosition());
