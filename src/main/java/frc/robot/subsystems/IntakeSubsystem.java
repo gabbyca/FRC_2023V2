@@ -15,8 +15,7 @@ public class IntakeSubsystem extends SubsystemBase {
   double speed = 0; 
   double current = 0; 
 
-  double coneInCurrent = 1000; //limit when a cone is in
-  double cubeInCurrent = 1000; //limit when a cube is in 
+ double intakeCurrent = 1.0; 
   
 
   public IntakeSubsystem(){
@@ -28,11 +27,15 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intake.set(0);
   }
 
+  public void moveMan(){
+    m_intake.set(1);
+  }
+
   public void intake(double speed, boolean inverted){ //true is release
     this.speed = speed; 
     this.inverted = inverted; 
     if(isCargo() && !inverted){
-      speed = .1; 
+      speed = .5; 
       inverted = false; 
     }
     m_intake.setInverted(inverted);
@@ -40,7 +43,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isCargo(){
-    if(current >= coneInCurrent || current >= cubeInCurrent){
+    if(current > intakeCurrent){
       return true; 
     }
 
@@ -56,7 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic(){
     getCurrent();
-    isCargo(); 
+    // isCargo(); 
    }
 
 }

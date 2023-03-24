@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.moveExtend;
 import frc.robot.commands.moveInExtend;
+import frc.robot.commands.moveIntake;
 import frc.robot.commands.stopExtension;
 import frc.robot.commands.scoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.ArmSubsystem;
@@ -63,6 +64,7 @@ public class RobotContainer {
   Trigger dUp = m_driverController.povUp(); 
   Trigger dDown = m_driverController.povDown(); 
   Trigger bButton = m_driverController.b(); 
+  moveIntake manIntake = new moveIntake(IntakeSubsystem); 
 // testing section
 
   public RobotContainer() {
@@ -97,12 +99,12 @@ public class RobotContainer {
 
 
     //testing section
-    // dUp.whileTrue(out); 
-    // dDown.whileTrue(in); 
-    // bButton.whileTrue(stop); 
+    dUp.whileTrue(out); 
+    dDown.whileTrue(in); 
+    bButton.whileTrue(stop); 
     // aButtonCo.onTrue(commands.testArm()); 
-    // bButtonCo.onTrue(commands.testExtension()); 
-    // yButtonCo.onTrue(commands.testWrist());
+    // bButtonco.onTrue(manIntake); 
+    yButtonco.onTrue(commands.coneMiddle());
     // xButton.onTrue(commands.coneMiddle());
     // aButtonCo.onTrue(commands.compactPosition());
    //testing section

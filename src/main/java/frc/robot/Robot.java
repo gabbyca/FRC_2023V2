@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.WristSubsystem.resetEncoder();
     m_robotContainer.ExtensionSubsystem.resetEncoder();
 
-
+    // m_robotContainer.IntakeSubsystem.intake(1,false);
     m_robotContainer.m_robotDrive.getRoll();
   }
 
@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.m_robotDrive.getRoll();
+    // m_robotContainer.IntakeSubsystem.intake(1,false);
   }
 
   @Override
