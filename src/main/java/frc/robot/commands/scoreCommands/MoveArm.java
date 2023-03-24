@@ -7,7 +7,7 @@ public class MoveArm extends CommandBase{
 
     private final ArmSubsystem shoulderSub;
     private final double setPoint;
-    private final double TOLERANCE = 100; //might change
+    private final double TOLERANCE = 2; 
 
     public MoveArm(ArmSubsystem shoulderSub, double setpoint){
         this.shoulderSub = shoulderSub; 
@@ -17,6 +17,10 @@ public class MoveArm extends CommandBase{
 
     @Override 
     public void initialize(){
+    }
+
+    @Override 
+    public void execute(){
        shoulderSub.moveArm(setPoint);
     }
 

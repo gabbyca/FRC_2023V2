@@ -7,7 +7,7 @@ public class moveExtension extends CommandBase{
 
     private final ExtensionSubsystem extensionSub; 
     private final double setPoint;
-    private final double TOLERANCE = 100; //might change
+    private final double TOLERANCE = 3; //might change
 
     public moveExtension(ExtensionSubsystem extensionSub, double setpoint){
         this.extensionSub = extensionSub; 

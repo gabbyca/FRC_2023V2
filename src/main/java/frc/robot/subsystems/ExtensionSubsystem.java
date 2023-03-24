@@ -18,12 +18,12 @@ public class ExtensionSubsystem extends SubsystemBase {
     double currentExtensionDistance; 
     PIDController m_pidController; 
 
-    double kP = 0.004; 
+    double kP = 0.1; 
     double kI = 0.00; 
     double kD = 0.0001; 
     double setpoint = 0.0; 
     
-    double maxPower = 0.4;
+    double maxPower = 1;
 
   public ExtensionSubsystem(){
       
@@ -63,15 +63,27 @@ public class ExtensionSubsystem extends SubsystemBase {
     if(setpoint < encoder.getPosition()) 
         output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower);
     else
-        output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) * 0.2;
+        output = MathUtil.clamp(m_pidController.calculate(encoder.getPosition()), -maxPower, maxPower) ;
     
     m_motor.set(output);
 
-   // SmartDashboard.putNumber("Extension Output", output);
-   // SmartDashboard.putNumber("Extension Setpoint", setpoint);
+   SmartDashboard.putNumber("Extension Output", output);
+   SmartDashboard.putNumber("Extension Setpoint", setpoint);
   }
 
-   @Override
+
+  public void manOut(){
+    m_motor.set(.2); 
+  }
+  public void manIn(){
+    m_motor.set(-0.2); 
+  }
+
+  public void stop(){
+    m_motor.set(0); 
+  }
+
+  @Override
   public void periodic(){
     calculate();
     getDistance();

@@ -1,22 +1,25 @@
 package frc.robot.commands;
 
+import java.security.cert.Extension;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.ExtensionSubsystem;
 
-public class SpeedCommand extends CommandBase{
+public class moveExtend  extends CommandBase{
 
-    private final double speed; 
+    private final ExtensionSubsystem extend; 
 
 
-    public SpeedCommand(double speed){
-        this.speed = speed; 
+    public moveExtend(ExtensionSubsystem extend){
+       this.extend = extend; 
 
-        addRequirements();
+        addRequirements(extend);
     }
 
     @Override 
     public void initialize(){
-        DriveConstants.kMaxSpeedMetersPerSecond = speed;
+       extend.manOut();
     }
 
     @Override
@@ -29,4 +32,4 @@ public class SpeedCommand extends CommandBase{
         return false;
     }
     
-}
+} //TEST DELTE!!!!

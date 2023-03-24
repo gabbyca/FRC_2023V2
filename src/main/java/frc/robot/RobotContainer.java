@@ -5,54 +5,64 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.SpeedCommand;
+import frc.robot.commands.moveExtend;
+import frc.robot.commands.moveInExtend;
+import frc.robot.commands.stopExtension;
 import frc.robot.commands.scoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-// import frc.robot.subsystems.WristSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 public class RobotContainer {
 
-  XboxController m_driverController = new XboxController(0);
-  XboxController m_coDriverController = new XboxController(1);
+  CommandXboxController m_driverController= new CommandXboxController(0); 
+  CommandXboxController m_coDriverController= new CommandXboxController(1); 
 
   // Subsystems
   DriveSubsystem m_robotDrive = new DriveSubsystem();
   ArmSubsystem ArmSubsystem = new ArmSubsystem(); 
-  // WristSubsystem WristSubsystem = new WristSubsystem(); 
+  WristSubsystem WristSubsystem = new WristSubsystem(); 
   IntakeSubsystem IntakeSubsystem = new IntakeSubsystem(); 
   ExtensionSubsystem ExtensionSubsystem = new ExtensionSubsystem(); 
  
 
   // Commands
-  // ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
-  SpeedCommand slow = new SpeedCommand(2.0); 
-  SpeedCommand fast = new SpeedCommand(4.8); 
+  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
 
   // Triggers
-  Trigger yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value); //swerve: setX()
-  Trigger aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value); //swerve: zeroheading
-  Trigger lBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value); //slow speed
-  Trigger rBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value); //fast speed
-
-  Trigger aButtonCo = new JoystickButton(m_coDriverController, XboxController.Button.kA.value); //
-  Trigger bButtonCo = new JoystickButton(m_coDriverController, XboxController.Button.kB.value); //
-  Trigger yButtonCo = new JoystickButton(m_coDriverController, XboxController.Button.kY.value); //
-  Trigger xButtonCo = new JoystickButton(m_coDriverController, XboxController.Button.kX.value); //
+  Trigger yButton = m_driverController.y();
+  Trigger xButton = m_driverController.x();
+  Trigger aButton = m_driverController.a();
+  Trigger lBumper = m_driverController.leftBumper();
+  Trigger rBumper = m_driverController.rightBumper();
   
+  Trigger dPadLeftco = m_coDriverController.povLeft(); 
+  Trigger dPadRightco = m_coDriverController.povRight(); 
+  Trigger aButtonCo = m_coDriverController.a();
+  Trigger bButtonCo = m_coDriverController.b();
+  Trigger yButtonCo = m_coDriverController.y();
+  Trigger xButtonCo = m_coDriverController.x();
+  
+
+// testing section
+  moveInExtend in = new moveInExtend(ExtensionSubsystem); 
+  moveExtend out = new moveExtend(ExtensionSubsystem); 
+  stopExtension stop = new stopExtension(ExtensionSubsystem); 
+  Trigger dUp = m_driverController.povUp(); 
+  Trigger dDown = m_driverController.povDown(); 
+  Trigger bButton = m_driverController.b(); 
+// testing section
 
   public RobotContainer() {
     configureButtonBindings();
-
     m_robotDrive.setDefaultCommand(
         new RunCommand(
             () -> m_robotDrive.drive(
@@ -64,18 +74,29 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    yButton.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
-    aButton.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
-    lBumper.onTrue(slow); 
-    rBumper.onTrue(fast); 
+    //DRIVER
+    aButton.onTrue(commands.compactPosition());
+    xButton.onTrue(commands.coneMiddle()); 
+    yButton.onTrue(commands.coneHigh());
 
-    // aButtonCo.onTrue(commands.testArm());
-    // bButtonCo.onTrue(commands.testWrist());
-    // yButtonCo.onTrue(commands.testExtension());
-  
+    //CO-DRIVER
+    dPadLeftco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
+    dPadRightco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
+
+
+    //testing section
+    dUp.whileTrue(out); 
+    dDown.whileTrue(in); 
+    bButton.whileTrue(stop); 
+    // aButtonCo.onTrue(commands.testArm()); 
+    // // bButtonCo.onTrue(commands.testExtension()); 
+    // yButtonCo.onTrue(commands.testWrist());
+    // xButton.onTrue(commands.coneMiddle());
+    // aButtonCo.onTrue(commands.compactPosition());
+   //testing section
+    
+  }
+  //public Command getAutonomousCommand() {}
    
   }
 
-  // public Command getAutonomousCommand() {}
-
-}

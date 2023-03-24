@@ -13,9 +13,9 @@ public final class Constants {
     public static  double kMaxSpeedMetersPerSecond = 4.8;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
-    public static final double kDirectionSlewRate = 1.2 * 2; // radians per second
-    public static final double kMagnitudeSlewRate = 1.8 * 2; // percent per second (1 = 100%)
-    public static final double kRotationalSlewRate = 2.0 * 2; // percent per second (1 = 100%)
+    public static final double kDirectionSlewRate = .6 * 2; // radians per second
+    public static final double kMagnitudeSlewRate = .9 * 2; // percent per second (1 = 100%)
+    public static final double kRotationalSlewRate = 1 * 2; // percent per second (1 = 100%)
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(20.0);
@@ -126,4 +126,17 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class JoystickConstants {
+    public static final int kXStick1 = 0;
+    public static final int kYStick1 = 1;
+    public static final int kLeftTrigger = 2;
+    public static final int kRightTrigger = 3;
+    public static final int kXStick2 = 4;
+    public static final int kYStick2 = 5;
+
+    public static final int kJoystick1Port = 0;
+    public static final int kJoystick2Port = 1;
+  }
+
 }
