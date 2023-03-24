@@ -30,33 +30,34 @@ public class ScoreCommandHolder extends CommandBase {
         return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 34.0), new moveExtension(extension, -370), new MoveWrist(wrist, -1));
     }
     public SequentialCommandGroup coneHigh(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 34.0), new moveExtension(extension, -370), new MoveWrist(wrist, -1));
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 37.0), new moveExtension(extension, -340), new MoveWrist(wrist, -1));
     }
-    // public ParallelCommandGroup cubeMiddle(){
-    //     return new ParallelCommandGroup(new MoveArm(shoulder, 100), new MoveWrist(wrist, 100), new moveExtension(extension, 100));
-    // }
-    // public ParallelCommandGroup cubeHigh(){
-    //     return new ParallelCommandGroup(new MoveArm(shoulder, 1000), new MoveWrist(wrist, 1000), new moveExtension(extension, 1000));
-    // }
-    // position to score
 
+    public SequentialCommandGroup cubeMiddle(){
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 34.0), new moveExtension(extension, 0), new MoveWrist(wrist, -1));
+    }
+    public SequentialCommandGroup cubeHigh(){
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 37.0), new moveExtension(extension, 0), new MoveWrist(wrist, -1));
+    }
+   
+    // position to score
 
     // release cargo
     public SequentialCommandGroup releaseScore(){
-        return new SequentialCommandGroup(new Intake(intake, 0.6, true), new moveExtension(extension, 0), new MoveArm(shoulder, 1), new MoveWrist(wrist, 1));
+        return new SequentialCommandGroup( new Intake(intake, 0.6, true),  new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     // release cargo 
 
 
     // retrieve cargo
     public SequentialCommandGroup getHumanPlayerGround(){
-        return new SequentialCommandGroup(new moveExtension(extension, 10), new MoveArm(shoulder, 10), new MoveWrist(wrist, 10), new Intake(intake, 1, false));
+        return new SequentialCommandGroup(new moveExtension(extension, 10), new MoveArm(shoulder, 10), new MoveWrist(wrist, 10), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     public SequentialCommandGroup getHumanPlayerShelf(){
-          return new SequentialCommandGroup(new moveExtension(extension, 100), new MoveArm(shoulder, 100), new MoveWrist(wrist, 100), new Intake(intake, 1, false));
+          return new SequentialCommandGroup(new moveExtension(extension, 100), new MoveArm(shoulder, 100), new MoveWrist(wrist, 100), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     public SequentialCommandGroup getGround(){
-         return new SequentialCommandGroup(new MoveArm(shoulder, 1), new MoveWrist(wrist, 1), new Intake(intake, 1, true));
+         return new SequentialCommandGroup(new MoveArm(shoulder, 1), new MoveWrist(wrist, 1), new Intake(intake, 1, true), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     // retrieve cargo
 
