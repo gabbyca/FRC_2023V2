@@ -20,46 +20,47 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem(){
      m_intake = new CANSparkMax(13, MotorType.kBrushless);
-     m_intake.setIdleMode(IdleMode.kBrake);
+    //  m_intake.setIdleMode(IdleMode.kBrake);
   }
 
-  public void motorZero(){
-    m_intake.set(0);
-  }
+//   public void motorZero(){
+//     m_intake.set(0);
+//   }
 
   public void moveMan(){
     m_intake.set(1);
+    SmartDashboard.putNumber("speed intake", 1); 
   }
 
-  public void intake(double speed, boolean inverted){ //true is release
-    this.speed = speed; 
-    this.inverted = inverted; 
-    if(isCargo() && !inverted){
-      speed = .5; 
-      inverted = false; 
-    }
-    m_intake.setInverted(inverted);
-    m_intake.set(speed);
-  }
+//   public void intake(double speed, boolean inverted){ //true is release
+//     this.speed = speed; 
+//     this.inverted = inverted; 
+//     if(isCargo() && !inverted){
+//       speed = .5; 
+//       inverted = false; 
+//     }
+//     m_intake.setInverted(inverted);
+//     m_intake.set(speed);
+//   }
 
-  public boolean isCargo(){
-    if(current > intakeCurrent){
-      return true; 
-    }
+//   public boolean isCargo(){
+//     if(current > intakeCurrent){
+//       return true; 
+//     }
 
-    return false; 
-  }
+//     return false; 
+//   }
 
-  public double getCurrent(){
-    current = m_intake.getOutputCurrent(); 
-    SmartDashboard.putNumber("IntakeCurrent", current);
-    return current; 
-  }
+//   public double getCurrent(){
+//     current = m_intake.getOutputCurrent(); 
+//     SmartDashboard.putNumber("IntakeCurrent", current);
+//     return current; 
+//   }
  
-  @Override
-  public void periodic(){
-    getCurrent();
-    // isCargo(); 
-   }
+//   @Override
+//   public void periodic(){
+//     getCurrent();
+//     // isCargo(); 
+//    }
 
 }

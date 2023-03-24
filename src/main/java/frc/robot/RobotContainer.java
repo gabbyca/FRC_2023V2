@@ -36,7 +36,8 @@ public class RobotContainer {
  
 
   // Commands
-  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+  // ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, ExtensionSubsystem); 
 
   // Triggers
   Trigger yButton = m_driverController.y();
@@ -64,7 +65,7 @@ public class RobotContainer {
   Trigger dUp = m_driverController.povUp(); 
   Trigger dDown = m_driverController.povDown(); 
   Trigger bButton = m_driverController.b(); 
-  moveIntake manIntake = new moveIntake(IntakeSubsystem); 
+  moveIntake moveIntake = new moveIntake(IntakeSubsystem); 
 // testing section
 
   public RobotContainer() {
@@ -85,10 +86,10 @@ public class RobotContainer {
     yButton.onTrue(commands.coneHigh());
     aButton.onTrue(commands.cubeMiddle());
     xButton.onTrue(commands.cubeHigh());
-    leftStick.onTrue(commands.getHumanPlayerShelf());
-    rightStick.onTrue(commands.getHumanPlayerGround());
+    // leftStick.onTrue(commands.getHumanPlayerShelf());
+    // rightStick.onTrue(commands.getHumanPlayerGround());
     lBumper.onTrue(commands.releaseScore());
-    lShoulder.onTrue(commands.getGround());
+    // lShoulder.onTrue(commands.getGround());
     //right rightbumber fast/slow
 
 
@@ -104,7 +105,7 @@ public class RobotContainer {
     bButton.whileTrue(stop); 
     // aButtonCo.onTrue(commands.testArm()); 
     // bButtonco.onTrue(manIntake); 
-    yButtonco.onTrue(commands.coneMiddle());
+    yButtonco.onTrue(moveIntake);
     // xButton.onTrue(commands.coneMiddle());
     // aButtonCo.onTrue(commands.compactPosition());
    //testing section

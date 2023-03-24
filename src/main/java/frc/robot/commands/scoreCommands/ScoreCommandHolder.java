@@ -3,7 +3,7 @@ package frc.robot.commands.scoreCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.IntakeSubsystem;
+// import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -12,16 +12,21 @@ public class ScoreCommandHolder extends CommandBase {
 
     private final WristSubsystem wrist;
     private final ArmSubsystem shoulder;
-    private final IntakeSubsystem intake; 
+    // private final IntakeSubsystem intake; 
     private final ExtensionSubsystem extension; 
 
-    public ScoreCommandHolder(ArmSubsystem shoulder, WristSubsystem wrist, IntakeSubsystem intake, ExtensionSubsystem extension){
+    // public ScoreCommandHolder(ArmSubsystem shoulder, WristSubsystem wrist, IntakeSubsystem intake, ExtensionSubsystem extension){
+    //     this.shoulder = shoulder;
+    //     this.wrist = wrist; 
+    //     this.intake = intake; 
+    //     this.extension = extension; 
+    // }
+
+    public ScoreCommandHolder(ArmSubsystem shoulder, WristSubsystem wrist, ExtensionSubsystem extension){
         this.shoulder = shoulder;
-        this.wrist = wrist; 
-        this.intake = intake; 
+        this.wrist = wrist;
         this.extension = extension; 
     }
-
 
     // position to score
     public SequentialCommandGroup compactPosition(){
@@ -54,15 +59,15 @@ public class ScoreCommandHolder extends CommandBase {
 
 
     // retrieve cargo
-    public SequentialCommandGroup getHumanPlayerGround(){
-        return new SequentialCommandGroup(new moveExtension(extension, -370), new MoveArm(shoulder, 34), new MoveWrist(wrist, 0), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
-    }
-    public SequentialCommandGroup getHumanPlayerShelf(){
-          return new SequentialCommandGroup(new moveExtension(extension, -370), new MoveArm(shoulder, 34), new MoveWrist(wrist, 0), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
-    }
-    public SequentialCommandGroup getGround(){
-         return new SequentialCommandGroup(new MoveArm(shoulder, 34), new MoveWrist(wrist, 1), new Intake(intake, 1, true), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
-    }
+    // public SequentialCommandGroup getHumanPlayerGround(){
+    //     return new SequentialCommandGroup(new moveExtension(extension, -370), new MoveArm(shoulder, 34), new MoveWrist(wrist, 0), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
+    // }
+    // public SequentialCommandGroup getHumanPlayerShelf(){
+    //       return new SequentialCommandGroup(new moveExtension(extension, -370), new MoveArm(shoulder, 34), new MoveWrist(wrist, 0), new Intake(intake, 1, false), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
+    // }
+    // public SequentialCommandGroup getGround(){
+    //      return new SequentialCommandGroup(new MoveArm(shoulder, 34), new MoveWrist(wrist, 1), new Intake(intake, 1, true), new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
+    // }
     // retrieve cargo
 
 }

@@ -29,7 +29,7 @@ public class moveInExtend  extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
     
 } //TEST DELETE!!!
