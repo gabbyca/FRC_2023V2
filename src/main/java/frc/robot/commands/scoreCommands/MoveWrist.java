@@ -8,7 +8,7 @@ public class MoveWrist extends CommandBase{
 
     private final WristSubsystem wristSub;
     private final double setPoint;
-    private final double TOLERANCE = 0.5;
+    private final double TOLERANCE = 0.3;
     
     public MoveWrist(WristSubsystem wristSub, double setpoint){
         this.wristSub = wristSub; 

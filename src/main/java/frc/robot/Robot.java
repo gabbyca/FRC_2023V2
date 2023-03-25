@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 
     if (m_autonomousCommand != null) {
@@ -62,15 +62,15 @@ public class Robot extends TimedRobot {
     m_robotContainer.WristSubsystem.resetEncoder();
     m_robotContainer.ExtensionSubsystem.resetEncoder();
 
-    // m_robotContainer.IntakeSubsystem.intake(1,false);
     m_robotContainer.m_robotDrive.getRoll();
+
+    m_robotContainer.commands.compactPosition();
   }
 
 
   @Override
   public void teleopPeriodic() {
     m_robotContainer.m_robotDrive.getRoll();
-    // m_robotContainer.IntakeSubsystem.intake(1,false);
   }
 
   @Override

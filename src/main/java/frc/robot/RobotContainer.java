@@ -5,17 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.moveExtend;
 import frc.robot.commands.moveInExtend;
-import frc.robot.commands.moveIntake;
 import frc.robot.commands.stopExtension;
+import frc.robot.commands.AutoCommandHolder.AutoCommandHolder;
 import frc.robot.commands.scoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.WristSubsystem;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -27,6 +30,9 @@ public class RobotContainer {
   CommandXboxController m_driverController= new CommandXboxController(0); 
   CommandXboxController m_coDriverController= new CommandXboxController(1); 
 
+
+  SendableChooser<Command> AutoChooser = new SendableChooser<>();
+
   // Subsystems
   DriveSubsystem m_robotDrive = new DriveSubsystem();
   ArmSubsystem ArmSubsystem = new ArmSubsystem(); 
@@ -36,12 +42,12 @@ public class RobotContainer {
  
 
   // Commands
-  // ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
-  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, ExtensionSubsystem); 
-
+  ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+ 
   // Triggers
   Trigger yButton = m_driverController.y();
   Trigger xButton = m_driverController.x();
+  Trigger bButton = m_driverController.b(); 
   Trigger aButton = m_driverController.a();
   Trigger lBumper = m_driverController.leftBumper();
   Trigger rBumper = m_driverController.rightBumper();
@@ -64,8 +70,6 @@ public class RobotContainer {
   stopExtension stop = new stopExtension(ExtensionSubsystem); 
   Trigger dUp = m_driverController.povUp(); 
   Trigger dDown = m_driverController.povDown(); 
-  Trigger bButton = m_driverController.b(); 
-  moveIntake moveIntake = new moveIntake(IntakeSubsystem); 
 // testing section
 
   public RobotContainer() {
@@ -78,6 +82,8 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+    setAutoCommands();
+    SmartDashboard.putData("Autos", AutoChooser);
   }
 
   private void configureButtonBindings() {
@@ -86,10 +92,10 @@ public class RobotContainer {
     yButton.onTrue(commands.coneHigh());
     aButton.onTrue(commands.cubeMiddle());
     xButton.onTrue(commands.cubeHigh());
-    // leftStick.onTrue(commands.getHumanPlayerShelf());
-    // rightStick.onTrue(commands.getHumanPlayerGround());
+    leftStick.onTrue(commands.getHumanPlayerGround());
+    rightStick.onTrue(commands.getHumanPlayerShelf());
     lBumper.onTrue(commands.releaseScore());
-    // lShoulder.onTrue(commands.getGround());
+    lShoulder.onTrue(commands.getGround());
     //right rightbumber fast/slow
 
 
@@ -99,19 +105,24 @@ public class RobotContainer {
     aButtonco.onTrue(commands.compactPosition());
 
 
-    //testing section
-    dUp.whileTrue(out); 
-    dDown.whileTrue(in); 
-    bButton.whileTrue(stop); 
+    // //testing section
+    // dUp.whileTrue(out); 
+    // dDown.whileTrue(in); 
+    // bButton.whileTrue(stop); 
     // aButtonCo.onTrue(commands.testArm()); 
     // bButtonco.onTrue(manIntake); 
-    yButtonco.onTrue(moveIntake);
     // xButton.onTrue(commands.coneMiddle());
     // aButtonCo.onTrue(commands.compactPosition());
    //testing section
-    
   }
-  //public Command getAutonomousCommand() {}
+  public void setAutoCommands(){
+    AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+    AutoChooser.addOption("Cone High", autos.auto1());
+    AutoChooser.addOption("Cone Middle", autos.auto2());
+  }
+  public Command getAutonomousCommand() {
+    return AutoChooser.getSelected(); 
+  }
    
   }
 
