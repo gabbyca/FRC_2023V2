@@ -10,17 +10,17 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speedss
-    public static  double kMaxSpeedMetersPerSecond = 4.8;
+    public static  double kMaxSpeedMetersPerSecond = 4.2;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
-    public static final double kDirectionSlewRate = .6 * 2; // radians per second
-    public static final double kMagnitudeSlewRate = .9 * 2; // percent per second (1 = 100%)
-    public static final double kRotationalSlewRate = 1 * 2; // percent per second (1 = 100%)
+    public static final double kDirectionSlewRate = 999; // radians per second
+    public static final double kMagnitudeSlewRate = 999; // percent per second (1 = 100%)
+    public static final double kRotationalSlewRate = 2 * 2; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(20.0);
+    public static final double kTrackWidth = Units.inchesToMeters(24.0);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(29.0);
+    public static final double kWheelBase = Units.inchesToMeters(32.5);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -105,7 +105,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
-    public static final double kDriveDeadband = 0.07;
+    public static final double kDriveDeadband = .1;
   }
 
   public static final class AutoConstants {

@@ -24,13 +24,13 @@ public class ScoreCommandHolder extends CommandBase {
 
     // position to score
     public SequentialCommandGroup compactPosition(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0.1, true));
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0.05, true));
     }
     public SequentialCommandGroup coneMiddle(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 31.4), new moveExtension(extension, -56.8), new MoveWrist(wrist, -.7));
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 34), new moveExtension(extension, -56.8), new MoveWrist(wrist, -.7));
     }
     public SequentialCommandGroup coneHigh(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 37.5), new moveExtension(extension, -274), new MoveWrist(wrist, -.8));
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 40), new moveExtension(extension, -274), new MoveWrist(wrist, -.8));
     }
     public SequentialCommandGroup cubeMiddle(){
         return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 29), new moveExtension(extension, -0.5), new MoveWrist(wrist, -.8));
@@ -45,7 +45,6 @@ public class ScoreCommandHolder extends CommandBase {
     public SequentialCommandGroup releaseScore(){
         return new SequentialCommandGroup( new Intake(intake, 0.3, false), new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0, true));
     }
-   
     // release cargo 
 
 

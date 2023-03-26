@@ -54,6 +54,7 @@ public class RobotContainer {
   Trigger leftStick = m_driverController.leftStick(); 
   Trigger rightStick = m_driverController.rightStick(); 
   Trigger lShoulder = m_driverController.leftTrigger(); 
+  Trigger rShoulder = m_driverController.rightTrigger(); 
 
   
   Trigger dPadLeftco = m_coDriverController.povLeft(); 
@@ -96,6 +97,7 @@ public class RobotContainer {
     rightStick.onTrue(commands.getHumanPlayerShelf());
     lBumper.onTrue(commands.releaseScore());
     lShoulder.onTrue(commands.getGround());
+    rShoulder.onTrue(commands.compactPosition());
     //right rightbumber fast/slow
 
 

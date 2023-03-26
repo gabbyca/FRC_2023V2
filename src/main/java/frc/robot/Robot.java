@@ -58,13 +58,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.ArmSubsystem.resetEncoder();
-    m_robotContainer.WristSubsystem.resetEncoder();
-    m_robotContainer.ExtensionSubsystem.resetEncoder();
+
 
     m_robotContainer.m_robotDrive.getRoll();
-
-    m_robotContainer.commands.compactPosition();
   }
 
 
