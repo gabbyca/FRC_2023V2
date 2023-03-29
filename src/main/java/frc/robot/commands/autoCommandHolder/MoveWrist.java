@@ -1,11 +1,10 @@
-package frc.robot.commands.AutoCommandHolder;
+package frc.robot.commands.autoCommandHolder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.WristSubsystem;
 
 
-public class MoveWrist extends CommandBase{
-
+public class MoveWrist extends CommandBase {
     private final WristSubsystem wristSub;
     private final double setPoint;
     private final double TOLERANCE = 0.2;

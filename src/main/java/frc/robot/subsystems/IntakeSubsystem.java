@@ -20,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void intake(double speed, boolean inverted){
     this.speed = speed; 
-    this.inverted = inverted; 
+    this.inverted = inverted;
     m_intake.set(speed);
     m_intake.setInverted(inverted);
   }
