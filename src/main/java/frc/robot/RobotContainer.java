@@ -105,8 +105,8 @@ public class RobotContainer {
     rShoulder.onTrue(commands.compactPosition());
     
     //CO-DRIVER
-    dPadUpco.onTrue(wristDown);
-    dPadDownco.onTrue(wristUp);
+    dPadUpco.onTrue(wristUp);
+    dPadDownco.onTrue(wristDown);
     lBumperco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
     rBumperco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
 

@@ -21,7 +21,11 @@ public class WristUp extends CommandBase{
     @Override 
     public void execute() {
         setPoint += 0.1; 
-        wristSub.moveWrist(setPoint);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;  
     }
 
     @Override
