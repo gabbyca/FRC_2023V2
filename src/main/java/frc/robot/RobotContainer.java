@@ -8,9 +8,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.moveExtend;
-import frc.robot.commands.moveInExtend;
-import frc.robot.commands.stopExtension;
+import frc.robot.commands.WristDown;
+import frc.robot.commands.WristUp;
 import frc.robot.commands.AutoCommandHolder.AutoCommandHolder;
 import frc.robot.commands.scoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.ArmSubsystem;
@@ -32,7 +31,7 @@ public class RobotContainer {
 
 
   SendableChooser<Command> AutoChooser = new SendableChooser<>();
-//commit
+
   // Subsystems
   DriveSubsystem m_robotDrive = new DriveSubsystem();
   ArmSubsystem ArmSubsystem = new ArmSubsystem(); 
@@ -40,10 +39,11 @@ public class RobotContainer {
   IntakeSubsystem IntakeSubsystem = new IntakeSubsystem(); 
   ExtensionSubsystem ExtensionSubsystem = new ExtensionSubsystem(); 
  
-
   // Commands
   ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
- 
+  WristDown wristDown = new WristDown(WristSubsystem); 
+  WristUp wristUp = new WristUp(WristSubsystem); 
+
   // Triggers
   Trigger yButton = m_driverController.y();
   Trigger xButton = m_driverController.x();
@@ -55,24 +55,28 @@ public class RobotContainer {
   Trigger rightStick = m_driverController.rightStick(); 
   Trigger lShoulder = m_driverController.leftTrigger(); 
   Trigger rShoulder = m_driverController.rightTrigger(); 
+  Trigger dPadLeft = m_driverController.povLeft(); 
+  Trigger dPadRight = m_driverController.povRight(); 
+  Trigger dPadUp = m_driverController.povUp(); 
+  Trigger dPadDown = m_driverController.povDown(); 
 
   
-  Trigger dPadLeftco = m_coDriverController.povLeft(); 
-  Trigger dPadRightco = m_coDriverController.povRight(); 
-  Trigger aButtonco = m_coDriverController.a();
-  Trigger bButtonco = m_coDriverController.b();
   Trigger yButtonco = m_coDriverController.y();
   Trigger xButtonco = m_coDriverController.x();
+  Trigger bButtonco = m_coDriverController.b(); 
+  Trigger aButtonco = m_coDriverController.a();
+  Trigger lBumperco = m_coDriverController.leftBumper();
+  Trigger rBumperco = m_coDriverController.rightBumper();
+  Trigger leftStickco = m_coDriverController.leftStick(); 
+  Trigger rightStickco = m_coDriverController.rightStick(); 
+  Trigger lShoulderco = m_coDriverController.leftTrigger(); 
+  Trigger rShoulderco = m_coDriverController.rightTrigger();
+  Trigger dPadLeftco = m_coDriverController.povLeft(); 
+  Trigger dPadRightco = m_coDriverController.povRight(); 
+  Trigger dPadUpco = m_coDriverController.povUp(); 
+  Trigger dPadDownco = m_coDriverController.povDown(); 
+
   
-
-// testing section
-  moveInExtend in = new moveInExtend(ExtensionSubsystem); 
-  moveExtend out = new moveExtend(ExtensionSubsystem); 
-  stopExtension stop = new stopExtension(ExtensionSubsystem); 
-  Trigger dUp = m_driverController.povUp(); 
-  Trigger dDown = m_driverController.povDown(); 
-// testing section
-
   public RobotContainer() {
     configureButtonBindings();
     m_robotDrive.setDefaultCommand(
@@ -88,6 +92,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    
     //DRIVER
     bButton.onTrue(commands.coneMiddle()); 
     yButton.onTrue(commands.coneHigh());
@@ -98,33 +103,24 @@ public class RobotContainer {
     lBumper.onTrue(commands.releaseScore());
     lShoulder.onTrue(commands.getGround());
     rShoulder.onTrue(commands.compactPosition());
-    //right rightbumber fast/slow
-
-
+    
     //CO-DRIVER
-    dPadLeftco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
-    dPadRightco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
-    aButtonco.onTrue(commands.compactPosition());
+    dPadUpco.onTrue(wristDown);
+    dPadDownco.onTrue(wristUp);
+    lBumperco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
+    rBumperco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
 
-
-    // //testing section
-    // dUp.whileTrue(out); 
-    // dDown.whileTrue(in); 
-    // bButton.whileTrue(stop); 
-    // aButtonCo.onTrue(commands.testArm()); 
-    // bButtonco.onTrue(manIntake); 
-    // xButton.onTrue(commands.coneMiddle());
-    // aButtonCo.onTrue(commands.compactPosition());
-   //testing section
   }
+
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
     AutoChooser.addOption("Cone High", autos.auto1());
     AutoChooser.addOption("Cone Middle", autos.auto2());
   }
+
   public Command getAutonomousCommand() {
     return AutoChooser.getSelected(); 
   }
    
-  }
+}
 

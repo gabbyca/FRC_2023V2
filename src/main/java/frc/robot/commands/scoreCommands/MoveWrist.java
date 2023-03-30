@@ -24,6 +24,7 @@ public class MoveWrist extends CommandBase{
     @Override 
     public boolean isFinished(){
     return wristSub.getDistance() < setPoint + TOLERANCE && wristSub.getDistance() > setPoint - TOLERANCE;
+
     }
     
 }
