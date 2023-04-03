@@ -113,7 +113,7 @@ public class RobotContainer {
   }
 
   public void setAutoCommands(){
-    AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+    AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem, m_robotDrive); 
     AutoChooser.addOption("Cone High", autos.auto1());
     AutoChooser.addOption("Cone Middle", autos.auto2());
   }

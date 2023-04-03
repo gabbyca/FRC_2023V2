@@ -70,6 +70,16 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getRoll();
   }
 
+
+
+  public void moveBackAuto() {
+    drive(0.2, 0.2, 0, true, true); 
+  }
+
+  public void stop() {
+    drive(0, 0, 0, true, true); 
+  }
+
   @Override
   public void periodic() {
     m_odometry.update(
