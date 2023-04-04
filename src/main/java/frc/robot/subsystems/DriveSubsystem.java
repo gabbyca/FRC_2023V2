@@ -73,7 +73,15 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public void moveBackAuto() {
+    drive(-0.2, -0.2, 0, true, true); 
+  }
+
+  public void moveForwardAuto() {
     drive(0.2, 0.2, 0, true, true); 
+  }
+
+  public void rotateLeft() {
+    drive(0.1, 0.1, 90, true, true); 
   }
 
   public void stop() {

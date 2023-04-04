@@ -21,8 +21,7 @@ public class AutoCommandHolder extends CommandBase {
         this.wrist = wrist; 
         this.intake = intake; 
         this.extension = extension; 
-        this.drive = drive; 
-        
+        this.drive = drive;   
     }
 
     //HighScore
@@ -43,17 +42,20 @@ public class AutoCommandHolder extends CommandBase {
 
     //MiddleScore
     public SequentialCommandGroup auto2(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), 
-        new MoveArm(shoulder, 31.4), 
-        new moveExtension(extension, -56.8), 
-        new MoveWrist(wrist, -.7), 
-        new Intake(intake, 0.3, false), 
-        new MoveWrist(wrist, 0),  
-        new moveExtension(extension, 0), 
-        new MoveArm(shoulder, 0), 
-        new MoveWrist(wrist, 0),  
-        new Intake(intake, 0, true), 
-        new DriveBack(drive)); 
+        return new SequentialCommandGroup(
+        // new MoveWrist(wrist, 0), 
+        // new MoveArm(shoulder, 31.4), 
+        // new moveExtension(extension, -56.8), 
+        // new MoveWrist(wrist, -.7), 
+        // new Intake(intake, 0.3, false), 
+        // new MoveWrist(wrist, 0),  
+        // new moveExtension(extension, 0), 
+        // new MoveArm(shoulder, 0), 
+        // new MoveWrist(wrist, 0),  
+        // new Intake(intake, 0, true), 
+        new DriveBack(drive), 
+        new DriveLeft(drive),  
+        new DriveForward(drive)); 
     }
 
 }
