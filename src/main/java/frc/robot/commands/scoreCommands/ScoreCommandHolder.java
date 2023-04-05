@@ -24,7 +24,7 @@ public class ScoreCommandHolder extends CommandBase {
 
     // position to score
     public SequentialCommandGroup compactPosition(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0.05, true));
+        return new SequentialCommandGroup(new MoveWrist(wrist, 0),new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     public SequentialCommandGroup coneMiddle(){
         return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 37), new moveExtension(extension, -56.8), new MoveWrist(wrist, -0.8));
@@ -43,20 +43,20 @@ public class ScoreCommandHolder extends CommandBase {
 
     // release cargo
     public SequentialCommandGroup releaseScore(){
-        return new SequentialCommandGroup( new Intake(intake, 0.3, false), new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0, true));
+        return new SequentialCommandGroup( new Intake(intake, 0.3, true), new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0));
     }
     // release cargo 
 
 
     // retrieve cargo
     public SequentialCommandGroup getHumanPlayerGround(){
-         return new SequentialCommandGroup(new Intake(intake, 0.5, true), new MoveArm(shoulder, 24), new MoveWrist(wrist, -0.5));
+         return new SequentialCommandGroup(new MoveArm(shoulder, 24), new MoveWrist(wrist, -0.5));
     }
     public SequentialCommandGroup getHumanPlayerShelf(){
-          return new SequentialCommandGroup(new Intake(intake, 0.5, true), new MoveArm(shoulder, 24), new MoveWrist(wrist, -.08));
+          return new SequentialCommandGroup(new MoveArm(shoulder, 24), new MoveWrist(wrist, -.08));
     }
     public SequentialCommandGroup getGround(){
-         return new SequentialCommandGroup(new Intake(intake, 0.5, true), new MoveArm(shoulder, 6),new moveExtension(extension, -7), new MoveWrist(wrist, -0.38));
+         return new SequentialCommandGroup(new MoveArm(shoulder, 6),new moveExtension(extension, -7), new MoveWrist(wrist, -0.38));
     }
     // retrieve cargo
 

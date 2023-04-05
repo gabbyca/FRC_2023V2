@@ -142,5 +142,4 @@ public final class Constants {
     public static final int kJoystick1Port = 0;
     public static final int kJoystick2Port = 1;
   }
-
 }

@@ -8,6 +8,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.NavigateToTarget;
+import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.WristDown;
 import frc.robot.commands.WristUp;
 import frc.robot.commands.AutoCommandHolder.AutoCommandHolder;
@@ -43,6 +45,7 @@ public class RobotContainer {
   ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
   WristDown wristDown = new WristDown(WristSubsystem); 
   WristUp wristUp = new WristUp(WristSubsystem); 
+  NavigateToTarget navigateToTarget = new NavigateToTarget(m_robotDrive); 
 
   // Triggers
   Trigger yButton = m_driverController.y();
@@ -89,6 +92,7 @@ public class RobotContainer {
             m_robotDrive));
     setAutoCommands();
     SmartDashboard.putData("Autos", AutoChooser);
+    IntakeSubsystem.setDefaultCommand(new RunIntakeCommand(IntakeSubsystem, 0.3, false));
   }
 
   private void configureButtonBindings() {
@@ -109,6 +113,7 @@ public class RobotContainer {
     dPadDownco.onTrue(wristDown);
     lBumperco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
     rBumperco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
+    aButtonco.onTrue(navigateToTarget);
 
   }
 
