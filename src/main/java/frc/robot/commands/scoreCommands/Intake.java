@@ -32,6 +32,7 @@ public class Intake extends CommandBase{
             return IntakeSubsystem.filtered_current>CURRENT_THRESHOLD;
         }
     }
+    @Override
     public void end(boolean interrupted){
         if(interrupted) { //TODO:diff interrupt behavior??, does the same thing right now
             intakeSub.setIntakeSpeedDirection(0.1, true);

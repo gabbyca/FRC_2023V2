@@ -143,6 +143,6 @@ public final class Constants {
     public static final int SAMPLE_SIZE = 5;
     public static final boolean DEBOUNCE = false;
     public static final double DEBOUNCE_TIME = 0.05;
-    public static final double CURRENT_THRESHOLD = 1;
+    public static final double CURRENT_THRESHOLD = 10;
     }
 }
