@@ -24,11 +24,31 @@ public class AutoCommandHolder extends CommandBase {
 
     //HighScore
     public SequentialCommandGroup auto1(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 37.5), new moveExtension(extension, -274), new MoveWrist(wrist, -.8), new Intake(intake, 0.3, false), new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0), new Intake(intake, 0, true), new MoveWrist(wrist, 0));
+        return new SequentialCommandGroup(
+                new MoveWrist(wrist, 0),
+                new MoveArm(shoulder, 37.5),
+                new MoveExtension(extension, -274),
+                new MoveWrist(wrist, -.8),
+                new Intake(intake, 0.3, false),
+                new MoveWrist(wrist, 0),
+                new MoveExtension(extension, 0),
+                new MoveArm(shoulder, 0),
+                new Intake(intake, 0, true),
+                new MoveWrist(wrist, 0));
     }
 
     //MiddleScore
     public SequentialCommandGroup auto2(){
-        return new SequentialCommandGroup(new MoveWrist(wrist, 0), new MoveArm(shoulder, 31.4), new moveExtension(extension, -56.8), new MoveWrist(wrist, -.7), new Intake(intake, 0.3, false), new MoveWrist(wrist, 0),  new moveExtension(extension, 0), new MoveArm(shoulder, 0),new MoveWrist(wrist, 0),  new Intake(intake, 0, true));
+        return new SequentialCommandGroup(
+                new MoveWrist(wrist, 0),
+                new MoveArm(shoulder, 31.4),
+                new MoveExtension(extension, -56.8),
+                new MoveWrist(wrist, -.7),
+                new Intake(intake, 0.3, false),
+                new MoveWrist(wrist, 0),
+                new MoveExtension(extension, 0),
+                new MoveArm(shoulder, 0),
+                new MoveWrist(wrist, 0),
+                new Intake(intake, 0, true));
     }
 }

@@ -8,6 +8,8 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
+import static edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior.kCancelSelf;
+
 public class ScoreCommandHolder extends CommandBase {
 
     private final WristSubsystem wrist;
@@ -23,76 +25,88 @@ public class ScoreCommandHolder extends CommandBase {
     }
 
     // position to score
-    public SequentialCommandGroup compactPosition(){
+    public SequentialCommandGroup compactPosition() {
         return new SequentialCommandGroup(
                 new MoveWrist(wrist, 0),
-                new moveExtension(extension, 0),
-                new MoveArm(shoulder, 0),
-                new Intake(intake, 0.05, true));
+                new MoveExtension(extension, 0),
+                new MoveArm(shoulder, 0));
     }
-    public SequentialCommandGroup coneMiddle(){
+    public SequentialCommandGroup coneMiddle() {
         return new SequentialCommandGroup(
                 new MoveWrist(wrist, 0),
                 new MoveArm(shoulder, 34),
-                new moveExtension(extension, -56.8),
+                new MoveExtension(extension, -56.8),
                 new MoveWrist(wrist, -.7));
     }
-    public SequentialCommandGroup coneHigh(){
+    public SequentialCommandGroup coneHigh() {
         return new SequentialCommandGroup(
                 new MoveWrist(wrist, 0),
                 new MoveArm(shoulder, 40),
-                new moveExtension(extension, -274),
+                new MoveExtension(extension, -274),
                 new MoveWrist(wrist, -.8));
     }
-    public SequentialCommandGroup cubeMiddle(){
+    public SequentialCommandGroup cubeMiddle() {
         return new SequentialCommandGroup(
                 new MoveWrist(wrist, 0),
                 new MoveArm(shoulder, 29),
-                new moveExtension(extension, -0.5),
+                new MoveExtension(extension, -0.5),
                 new MoveWrist(wrist, -.8));
     }
-    public SequentialCommandGroup cubeHigh(){
+    public SequentialCommandGroup cubeHigh() {
         return new SequentialCommandGroup(
                 new MoveWrist(wrist, 0),
                 new MoveArm(shoulder, 37),
-                new moveExtension(extension, -200),
+                new MoveExtension(extension, -200),
                 new MoveWrist(wrist, -0.9));
     }
    
     // position to score
 
     // release cargo
-    public SequentialCommandGroup releaseScore(){
+    public SequentialCommandGroup releaseScoreAndGoBack() {
         return new SequentialCommandGroup(
-                new Intake(intake, 0.3, false),
+                new Outtake(intake, 0.1),
                 new MoveWrist(wrist, 0),
-                new moveExtension(extension, 0),
-                new MoveArm(shoulder, 0),
-                new Intake(intake, 0, true));
+                new MoveExtension(extension, 0),
+                new MoveArm(shoulder, 0));
+    }
+
+    public SequentialCommandGroup shootCubeAndGoBack() {
+        return new SequentialCommandGroup(
+                new Outtake(intake, 1),
+                new MoveWrist(wrist, 0),
+                new MoveExtension(extension, 0),
+                new MoveArm(shoulder, 0));
     }
     // release cargo 
 
-
     // retrieve cargo
-    public SequentialCommandGroup getHumanPlayerGround(){
+    public SequentialCommandGroup getHumanPlayerGround() {
          return new SequentialCommandGroup(
-                 new Intake(intake, 0.5, true),
                  new MoveArm(shoulder, 24),
-                 new MoveWrist(wrist, -0.5));
+                 new MoveWrist(wrist, -0.5),
+                 new Intake(intake, 0.5)
+                 .withInterruptBehavior(kCancelSelf));
     }
-    public SequentialCommandGroup getHumanPlayerShelf(){
+    public SequentialCommandGroup getHumanPlayerShelf() {
           return new SequentialCommandGroup(
-                  new Intake(intake, 0.5, true),
                   new MoveArm(shoulder, 24),
-                  new MoveWrist(wrist, -.08));
+                  new MoveWrist(wrist, -.08),
+                  new Intake(intake, 0.5)
+                  .withInterruptBehavior(kCancelSelf));
     }
-    public SequentialCommandGroup getGround(){
+    public SequentialCommandGroup getGround() {
          return new SequentialCommandGroup(
-                 new Intake(intake, 0.5, true),
                  new MoveArm(shoulder, 6),
-                 new moveExtension(extension, -7),
-                 new MoveWrist(wrist, -0.38));
+                 new MoveExtension(extension, -7),
+                 new MoveWrist(wrist, -0.38),
+                 new Intake(intake, 0.5)
+                 .withInterruptBehavior(kCancelSelf));
+    }
+
+    public SequentialCommandGroup test() {
+        return new SequentialCommandGroup(
+                new Intake(intake, 0.5));
     }
     // retrieve cargo
-
 }

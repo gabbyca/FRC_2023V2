@@ -1,4 +1,4 @@
-package frc.robot.commands.AutoCommandHolder;
+package frc.robot.commands.autoCommandHolder;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -22,7 +22,7 @@ public class Intake extends CommandBase{
     @Override 
     public void initialize(){
       startTime = Timer.getFPGATimestamp();
-      intakeSub.intake(speed, inverted);
+      intakeSub.setIntakeSpeedDirection(speed, inverted);
     }
 
     @Override 

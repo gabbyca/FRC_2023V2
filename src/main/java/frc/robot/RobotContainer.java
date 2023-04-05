@@ -8,10 +8,11 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.autoCommandHolder.AutoCommandHolder;
 import frc.robot.commands.moveExtend;
 import frc.robot.commands.moveInExtend;
 import frc.robot.commands.stopExtension;
-import frc.robot.commands.AutoCommandHolder.AutoCommandHolder;
+import frc.robot.commands.autoCommandHolder.AutoCommandHolder;
 import frc.robot.commands.scoreCommands.ScoreCommandHolder;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -23,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import static edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior.kCancelSelf;
 
 
 public class RobotContainer {
@@ -95,9 +98,11 @@ public class RobotContainer {
     xButton.onTrue(commands.cubeHigh());
     leftStick.onTrue(commands.getHumanPlayerGround());
     rightStick.onTrue(commands.getHumanPlayerShelf());
-    lBumper.onTrue(commands.releaseScore());
+    lBumper.onTrue(commands.releaseScoreAndGoBack());
+    rBumper.onTrue(commands.shootCubeAndGoBack());
     lShoulder.onTrue(commands.getGround());
-    rShoulder.onTrue(commands.compactPosition());
+
+    rShoulder.onTrue(commands.test());
     //right rightbumber fast/slow
 
 
@@ -118,7 +123,7 @@ public class RobotContainer {
    //testing section
   }
   public void setAutoCommands(){
-    AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
+    AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem);
     AutoChooser.addOption("Cone High", autos.auto1());
     AutoChooser.addOption("Cone Middle", autos.auto2());
   }

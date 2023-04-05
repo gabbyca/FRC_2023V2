@@ -1,4 +1,4 @@
-package frc.robot.commands.AutoCommandHolder;
+package frc.robot.commands.autoCommandHolder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;

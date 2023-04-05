@@ -28,7 +28,6 @@ public class ArmSubsystem extends SubsystemBase {
     double maxPower = 0.5;
 
   public ArmSubsystem(){
-      
       m_Lead = new CANSparkMax(9, MotorType.kBrushless);     
       m_Follow =  new CANSparkMax(10, MotorType.kBrushless);
       
@@ -87,5 +86,4 @@ public class ArmSubsystem extends SubsystemBase {
     calculate();
     getDistance(); 
    }
-
 }
