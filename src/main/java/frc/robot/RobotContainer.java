@@ -8,7 +8,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.NavigateToTarget;
 import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.WristDown;
 import frc.robot.commands.WristUp;
@@ -45,8 +44,7 @@ public class RobotContainer {
   ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
   WristDown wristDown = new WristDown(WristSubsystem); 
   WristUp wristUp = new WristUp(WristSubsystem); 
-  NavigateToTarget navigateToTarget = new NavigateToTarget(m_robotDrive); 
-
+ 
   // Triggers
   Trigger yButton = m_driverController.y();
   Trigger xButton = m_driverController.x();
@@ -113,8 +111,6 @@ public class RobotContainer {
     dPadDownco.onTrue(wristDown);
     lBumperco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
     rBumperco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
-    aButtonco.onTrue(navigateToTarget);
-
   }
 
   public void setAutoCommands(){
