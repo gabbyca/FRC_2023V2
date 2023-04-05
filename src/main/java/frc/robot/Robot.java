@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.RunIntakeCommand;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_robotDrive.getRoll();
     //might need this 
     //m_robotContainer.IntakeSubsystem.intake(0.2, false);
+    //m_robotContainer.IntakeSubsystem.setDefaultCommand(new RunIntakeCommand(m_robotContainer.IntakeSubsystem, 0.3, false));
   }
 
   @Override

@@ -1,5 +1,11 @@
 package frc.robot.commands.AutoCommandHolder;
 
+import java.util.List;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -36,8 +42,8 @@ public class AutoCommandHolder extends CommandBase {
             new moveExtension(extension, 0), 
             new MoveArm(shoulder, 0), 
             new Intake(intake, 0, true), 
-            new MoveWrist(wrist, 0), 
-            new DriveBack(drive)); 
+            new MoveWrist(wrist, 0)); 
+            // new DriveBack(drive)); 
     }
 
     //MiddleScore
@@ -52,10 +58,21 @@ public class AutoCommandHolder extends CommandBase {
         new moveExtension(extension, 0), 
         new MoveArm(shoulder, 0), 
         new MoveWrist(wrist, 0),  
-        new Intake(intake, 0, true), 
-        new DriveBack(drive)); 
+        new Intake(intake, 0, true));  
     }
 
-    
+   
+    List<PathPlannerTrajectory> pathGroup1 = PathPlanner.loadPathGroup("Example Path Group", new PathConstraints(4, 3));
+
+    // This will load the file "Example Path Group.path" and generate it with different path constraints for each segment
+    List<PathPlannerTrajectory> pathGroup2 = PathPlanner.loadPathGroup(
+        "Example Path Group", 
+        new PathConstraints(4, 3), 
+        new PathConstraints(2, 2), 
+        new PathConstraints(3, 3));
+
+
+
+
 
 }

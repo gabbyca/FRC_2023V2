@@ -28,22 +28,24 @@ public class Pose extends CommandBase {
 
     @Override
     public void initialize() {
-        currentX = limelight.getTx(); 
+        desiredX = 0; //change to desired X
     }
 
     @Override
     public void execute() {
-        double output;
-        if(desiredX < currentX) 
+        currentX = limelight.getTx(); 
+        double output; 
+        if(desiredX < currentX)
             output = MathUtil.clamp(m_pidController.calculate(currentX), -maxPower, maxPower);
         else
-            output = MathUtil.clamp(m_pidController.calculate(currentX), -maxPower, maxPower) ;
+            output = 0;
         
         swerveDrive.drive(output, 0, 0, true, true);
     }
 
     @Override
     public boolean isFinished() {
-        return desiredX - currentX < 3; 
+        return desiredX - currentX < 3;  //tolerance likely adjust 
     }
 }
+
