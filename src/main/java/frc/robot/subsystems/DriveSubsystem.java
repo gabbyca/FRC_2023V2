@@ -58,7 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
   private SlewRateLimiter m_rotLimiter = new SlewRateLimiter(DriveConstants.kRotationalSlewRate);
   private double m_prevTime = WPIUtilJNI.now() * 1e-6;
 
-  SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
+  public SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
       DriveConstants.kDriveKinematics,
       m_gyro.getRotation2d(),
       new SwerveModulePosition[] {
@@ -67,7 +67,7 @@ public class DriveSubsystem extends SubsystemBase {
           m_rearLeft.getPosition(),
           m_rearRight.getPosition()
       });
-
+      
   public DriveSubsystem() {
     limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
     tx = limelightTable.getEntry("tx");
@@ -232,5 +232,6 @@ public double getTargetY() {
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
+
 
 }

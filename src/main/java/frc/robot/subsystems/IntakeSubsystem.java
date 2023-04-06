@@ -12,7 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public double speed = 0;
 
   
-  private static final double CURRENT_SPIKE_THRESHOLD = 25.0; // expected spike 
+  private static final double CURRENT_SPIKE_THRESHOLD = 38.0; // expected spike 
   private static final int DEBOUNCE_DELAY = 25; // required debounce time (ms)
   private long lastSpikeTime;
 
@@ -45,6 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private boolean checkCurrentSpike() {
     double current = m_intake.getOutputCurrent();
+    System.out.println(current);
     return current >= CURRENT_SPIKE_THRESHOLD;
   }
 
