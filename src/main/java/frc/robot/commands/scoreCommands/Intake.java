@@ -21,7 +21,8 @@ public class Intake extends CommandBase{
 
     @Override 
     public void initialize(){
-      intakeSub.setIntakeSpeedDirection(speed, false); 
+      intakeSub.setIntakeSpeedDirection(speed, false);
+      SmartDashboard.putString("NO", "Cargo"); 
     }
 
     @Override 
