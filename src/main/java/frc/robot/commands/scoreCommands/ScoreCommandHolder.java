@@ -81,15 +81,15 @@ public class ScoreCommandHolder extends CommandBase {
     // retrieve cargo
     public SequentialCommandGroup getHumanPlayerGround() {
          return new SequentialCommandGroup(
-                 new MoveArm(shoulder, 24),
-                 new MoveWrist(wrist, -0.5),
+                 new MoveArm(shoulder, 27.93),
+                 new MoveWrist(wrist, -0.6),
                  new Intake(intake, 0.5)
                  .withInterruptBehavior(kCancelSelf));
     }
     public SequentialCommandGroup getHumanPlayerShelf() {
           return new SequentialCommandGroup(
-                  new MoveArm(shoulder, 24),
-                  new MoveWrist(wrist, -.08),
+                  new MoveArm(shoulder, 39),
+                  new MoveWrist(wrist, -.0983),
                   new Intake(intake, 0.5)
                   .withInterruptBehavior(kCancelSelf), compactPosition());
     }

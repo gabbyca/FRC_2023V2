@@ -57,8 +57,6 @@ public class AutoCommandHolder extends CommandBase {
 
     //MiddleScore
     public SequentialCommandGroup auto2(){
-        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("DriveBack", 
-        new PathConstraints(1, 1)); 
         return new SequentialCommandGroup(
         new MoveWrist(wrist, 0), 
         new MoveArm(shoulder, 31.4), 
