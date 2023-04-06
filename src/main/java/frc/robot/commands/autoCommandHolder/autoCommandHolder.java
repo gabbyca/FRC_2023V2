@@ -40,7 +40,7 @@ public class AutoCommandHolder extends CommandBase {
     //HighScore
     public SequentialCommandGroup auto1(SwerveAutoBuilder autoBuilder){
         List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("coneScoreAutoBalance", 
-        new PathConstraints(4, 3));
+        new PathConstraints(2, 3));
         return new SequentialCommandGroup( 
             new MoveWrist(wrist, 0), 
             new MoveArm(shoulder, 37.5), 
@@ -57,8 +57,8 @@ public class AutoCommandHolder extends CommandBase {
 
      //HighScore
      public SequentialCommandGroup auto3(SwerveAutoBuilder autoBuilder){
-        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("coneScoreAutoBalance", 
-        new PathConstraints(4, 3));
+        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("redConeScoreAutoBalance", 
+        new PathConstraints(2, 3));
         return new SequentialCommandGroup( 
             new MoveWrist(wrist, 0), 
             new MoveArm(shoulder, 37.5), 
