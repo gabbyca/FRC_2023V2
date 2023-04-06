@@ -1,6 +1,7 @@
 package frc.robot.commands.scoreCommands;
 
 import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -21,6 +22,7 @@ public class Intake extends CommandBase{
     @Override 
     public void initialize(){
       intakeSub.setIntakeSpeedDirection(speed, false);
+      SmartDashboard.putString("NO", "Cargo"); 
     }
 
     @Override 
@@ -36,9 +38,11 @@ public class Intake extends CommandBase{
     public void end(boolean interrupted){
         if(interrupted) { //TODO:diff interrupt behavior??, does the same thing right now
             intakeSub.setIntakeSpeedDirection(0.05, false);
+            SmartDashboard.putString("YES!!!", "Cargo"); 
         }
         else {
             intakeSub.setIntakeSpeedDirection(0.05, false);
+            SmartDashboard.putString("YES", "Cargo"); 
         }
     }
 }

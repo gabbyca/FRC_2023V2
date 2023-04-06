@@ -41,6 +41,12 @@ public class AutoCommandHolder extends CommandBase {
     public SequentialCommandGroup auto1(SwerveAutoBuilder autoBuilder){
         List<PathPlannerTrajectory> driveBack = PathPlanner.loadPathGroup("DriveBack", 
         new PathConstraints(4, 3));
+        List<PathPlannerTrajectory> turnBack = PathPlanner.loadPathGroup("TurnBack", 
+        new PathConstraints(4, 3));
+        List<PathPlannerTrajectory> chargeClimb = PathPlanner.loadPathGroup("ChargeClimb", 
+        new PathConstraints(4, 3));
+
+
         return new SequentialCommandGroup( 
             new MoveWrist(wrist, 0), 
             new MoveArm(shoulder, 37.5), 
@@ -52,7 +58,9 @@ public class AutoCommandHolder extends CommandBase {
             new MoveArm(shoulder, 0), 
             new Intake(intake, 0, true), 
             new MoveWrist(wrist, 0),  
-            autoBuilder.fullAuto(driveBack));  
+            autoBuilder.fullAuto(driveBack),  
+            autoBuilder.fullAuto(turnBack),
+            autoBuilder.fullAuto(chargeClimb)); 
     }
 
     //MiddleScore
