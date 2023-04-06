@@ -22,7 +22,6 @@ public class Intake extends CommandBase{
     @Override 
     public void initialize(){
       intakeSub.setIntakeSpeedDirection(speed, false);
-      SmartDashboard.putString("NO", "Cargo"); 
     }
 
     @Override 
@@ -37,12 +36,10 @@ public class Intake extends CommandBase{
     @Override
     public void end(boolean interrupted){
         if(interrupted) { //TODO:diff interrupt behavior??, does the same thing right now
-            intakeSub.setIntakeSpeedDirection(0.05, false);
-            SmartDashboard.putString("YES!!!", "Cargo"); 
+            intakeSub.setIntakeSpeedDirection(0.05, false); 
         }
         else {
             intakeSub.setIntakeSpeedDirection(0.05, false);
-            SmartDashboard.putString("YES", "Cargo"); 
         }
     }
 }
