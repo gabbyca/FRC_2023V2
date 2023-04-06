@@ -48,7 +48,7 @@ public class AutoCommandHolder extends CommandBase {
             new moveExtension(extension, 0), 
             new MoveArm(shoulder, 0), 
             new Intake(intake, 0, true), 
-            new MoveWrist(wrist, 0),  
+            new MoveWrist(wrist, -0.2),  
             autoBuilder.fullAuto(pathGroup)); 
     }
 
@@ -66,7 +66,7 @@ public class AutoCommandHolder extends CommandBase {
             new moveExtension(extension, 0), 
             new MoveArm(shoulder, 0), 
             new Intake(intake, 0, true), 
-            new MoveWrist(wrist, 0),  
+            new MoveWrist(wrist, -0.2),  
             autoBuilder.fullAuto(pathGroup)); 
     }
 
@@ -81,7 +81,7 @@ public class AutoCommandHolder extends CommandBase {
         new MoveWrist(wrist, 0),  
         new moveExtension(extension, 0), 
         new MoveArm(shoulder, 0), 
-        new MoveWrist(wrist, 0),  
+        new MoveWrist(wrist, -0.2),  
         new Intake(intake, 0, true));
 
     }
