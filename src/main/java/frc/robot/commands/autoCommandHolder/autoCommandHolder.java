@@ -83,7 +83,6 @@ public class AutoCommandHolder extends CommandBase {
         new MoveArm(shoulder, 0), 
         new MoveWrist(wrist, -0.2),  
         new Intake(intake, 0, true));
-
     }
   
   
