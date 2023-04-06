@@ -136,6 +136,7 @@ public class RobotContainer {
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem, m_robotDrive); 
     AutoChooser.addOption("BLUE High Balance ", autos.auto1(autoBuilder));
+    AutoChooser.addOption("RED High Balance ", autos.auto3(autoBuilder));
     AutoChooser.addOption("Middle Still", autos.auto2());
   }
 
