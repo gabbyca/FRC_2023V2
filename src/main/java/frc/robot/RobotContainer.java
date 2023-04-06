@@ -26,6 +26,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtensionSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.TCSwerveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -131,6 +132,8 @@ public class RobotContainer {
     dPadDownco.onTrue(wristDown);
     lBumperco.toggleOnTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive)); 
     rBumperco.onTrue(new InstantCommand(m_robotDrive::zeroHeading));
+    xButtonco.onTrue(new InstantCommand(TCSwerveSubsystem::cycleTractionControlMode));
+    bButtonco.onTrue(new InstantCommand(TCSwerveSubsystem::debug_togglelowpower));
   }
 
   public void setAutoCommands(){

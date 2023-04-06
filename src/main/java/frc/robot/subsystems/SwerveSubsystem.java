@@ -17,17 +17,17 @@ import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants.ModuleConstants;
 
 public class SwerveSubsystem {
-  private final CANSparkMax m_drivingSparkMax;
-  private final CANSparkMax m_turningSparkMax;
+  final CANSparkMax m_drivingSparkMax;
+  final CANSparkMax m_turningSparkMax;
 
-  private final RelativeEncoder m_drivingEncoder;
-  private final AbsoluteEncoder m_turningEncoder;
+  final RelativeEncoder m_drivingEncoder;
+  final AbsoluteEncoder m_turningEncoder;
 
-  private final SparkMaxPIDController m_drivingPIDController;
-  private final SparkMaxPIDController m_turningPIDController;
+  final SparkMaxPIDController m_drivingPIDController;
+  final SparkMaxPIDController m_turningPIDController;
 
-  private double m_chassisAngularOffset = 0;
-  private SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
+  double m_chassisAngularOffset = 0;
+  SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
 
   public SwerveSubsystem(int drivingCANId, int turningCANId, double chassisAngularOffset) {
     m_drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);

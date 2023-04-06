@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -28,25 +31,33 @@ public class DriveSubsystem extends SubsystemBase {
   private NetworkTable limelightTable;
   private NetworkTableEntry tx, ty;
 
-  private final SwerveSubsystem m_frontLeft = new SwerveSubsystem(
+  private final TCSwerveSubsystem m_frontLeft = new TCSwerveSubsystem(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
-      DriveConstants.kFrontLeftChassisAngularOffset);
+      DriveConstants.kFrontLeftChassisAngularOffset,
+      -DriveConstants.kWheelTrainHalfWidth,
+      DriveConstants.kWheelTrainHalfLength);
 
-  private final SwerveSubsystem m_frontRight = new SwerveSubsystem(
+  private final TCSwerveSubsystem m_frontRight = new TCSwerveSubsystem(
       DriveConstants.kFrontRightDrivingCanId,
       DriveConstants.kFrontRightTurningCanId,
-      DriveConstants.kFrontRightChassisAngularOffset);
+      DriveConstants.kFrontRightChassisAngularOffset,
+      DriveConstants.kWheelTrainHalfWidth,
+      DriveConstants.kWheelTrainHalfLength);
 
-  private final SwerveSubsystem m_rearLeft = new SwerveSubsystem(
+  private final TCSwerveSubsystem m_rearLeft = new TCSwerveSubsystem(
       DriveConstants.kRearLeftDrivingCanId,
       DriveConstants.kRearLeftTurningCanId,
-      DriveConstants.kBackLeftChassisAngularOffset);
+      DriveConstants.kBackLeftChassisAngularOffset,
+      -DriveConstants.kWheelTrainHalfWidth,
+      -DriveConstants.kWheelTrainHalfLength);
 
-  private final SwerveSubsystem m_rearRight = new SwerveSubsystem(
+  private final TCSwerveSubsystem m_rearRight = new TCSwerveSubsystem(
       DriveConstants.kRearRightDrivingCanId,
       DriveConstants.kRearRightTurningCanId,
-      DriveConstants.kBackRightChassisAngularOffset);
+      DriveConstants.kBackRightChassisAngularOffset,
+      DriveConstants.kWheelTrainHalfWidth,
+      -DriveConstants.kWheelTrainHalfLength);
 
   private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
@@ -136,6 +147,8 @@ public double getTargetY() {
 
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
 
+    Rotation2d gyroRot = m_gyro.getRotation2d();
+
     double xSpeedCommanded;
     double ySpeedCommanded;
 
@@ -188,10 +201,42 @@ public double getTargetY() {
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                m_gyro.getRotation2d())
+                gyroRot)
             : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+        
+
+    // traction control calculations
+    if (TCSwerveSubsystem.getTractionControlMode() != 0) {
+      
+      Translation2d driveDirection = new Translation2d(xSpeedCommanded, ySpeedCommanded);
+
+      // rotate input vector to align with heading
+      if (fieldRelative) {
+        double gyroAngle = MathUtil.angleModulus(gyroRot.getRadians());
+        driveDirection = driveDirection.rotateBy(new Rotation2d(-gyroAngle));
+      }
+      //driveDirection = driveDirection.rotateBy(new Rotation2d(-gyroAngle - (rotDelivered * elapsedTime)));
+      // input vector -> unit vector
+      double ddNorm = driveDirection.getNorm();
+      if (ddNorm > 0)
+        driveDirection = driveDirection.div(ddNorm);
+
+      // get reciprocals
+      double xDriveBaseReciprocal =
+                    driveDirection.getX() != 0 ? 1 / (DriveConstants.kTrackWidth / Math.abs(driveDirection.getX())) : 0;
+      double yDriveBaseReciprocal =
+                    driveDirection.getY() != 0 ? 1 / (DriveConstants.kWheelBase / Math.abs(driveDirection.getY())) : 0;
+
+      // calculate traction control strength on each motor
+      m_frontLeft.calculateStrength(driveDirection, xDriveBaseReciprocal, yDriveBaseReciprocal);
+      m_frontRight.calculateStrength(driveDirection, xDriveBaseReciprocal, yDriveBaseReciprocal);
+      m_rearLeft.calculateStrength(driveDirection, xDriveBaseReciprocal, yDriveBaseReciprocal);
+      m_rearRight.calculateStrength(driveDirection, xDriveBaseReciprocal, yDriveBaseReciprocal);
+    }
+
+
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
     m_frontRight.setDesiredState(swerveModuleStates[1]);
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
