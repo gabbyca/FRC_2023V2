@@ -4,14 +4,9 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.RunIntakeCommand;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -25,6 +20,8 @@ public class Robot extends TimedRobot {
     m_robotContainer.ArmSubsystem.resetEncoder();
     m_robotContainer.WristSubsystem.resetEncoder();
     m_robotContainer.ExtensionSubsystem.resetEncoder();
+
+    
   }
 
 
@@ -63,8 +60,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-
-
     m_robotContainer.m_robotDrive.getRoll();
   }
 
@@ -72,9 +67,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.m_robotDrive.getRoll();
-    //might need this 
-    //m_robotContainer.IntakeSubsystem.intake(0.2, false);
-    //m_robotContainer.IntakeSubsystem.setDefaultCommand(new RunIntakeCommand(m_robotContainer.IntakeSubsystem, 0.3, false));
   }
 
   @Override

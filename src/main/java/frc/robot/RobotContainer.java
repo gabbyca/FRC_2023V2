@@ -4,11 +4,20 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.List;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.RunIntakeCommand;
 import frc.robot.commands.WristDown;
 import frc.robot.commands.WristUp;
 import frc.robot.commands.AutoCommandHolder.AutoCommandHolder;
@@ -39,6 +48,18 @@ public class RobotContainer {
   WristSubsystem WristSubsystem = new WristSubsystem(); 
   IntakeSubsystem IntakeSubsystem = new IntakeSubsystem(); 
   ExtensionSubsystem ExtensionSubsystem = new ExtensionSubsystem(); 
+
+  HashMap<String, Command> eventMap = new HashMap<>();
+  SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
+    m_robotDrive::getPose, 
+    m_robotDrive::resetOdometry, 
+    DriveConstants.kDriveKinematics, 
+    new PIDConstants(.004, 0.0, 0.0), 
+    new PIDConstants(0.5, 0.0, 0.0), 
+    m_robotDrive::setModuleStates, 
+    eventMap,
+    true, //mirrors dep alliance
+    m_robotDrive);
  
   // Commands
   ScoreCommandHolder commands = new ScoreCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem); 
@@ -90,7 +111,6 @@ public class RobotContainer {
             m_robotDrive));
     setAutoCommands();
     SmartDashboard.putData("Autos", AutoChooser);
-    IntakeSubsystem.setDefaultCommand(new RunIntakeCommand(IntakeSubsystem, 0.3, false));
   }
 
   private void configureButtonBindings() {
@@ -115,7 +135,7 @@ public class RobotContainer {
 
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem, m_robotDrive); 
-    AutoChooser.addOption("Cone High", autos.auto1());
+    AutoChooser.addOption("Cone High", autos.auto1(autoBuilder));
     AutoChooser.addOption("Cone Middle", autos.auto2());
   }
 
