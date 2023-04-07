@@ -35,9 +35,44 @@ public class AutoCommandHolder extends CommandBase {
     }
 
     //HighScore
+    // public SequentialCommandGroup auto1(SwerveAutoBuilder autoBuilder){
+    //     List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("coneScoreAutoBalance", 
+    //     new PathConstraints(2, 3));
+    //     return new SequentialCommandGroup( 
+    //         new MoveWrist(wrist, 0), 
+    //         new MoveArm(shoulder, 37.5), 
+    //         new moveExtension(extension, -274), 
+    //         new MoveWrist(wrist, -.8), 
+    //         new Intake(intake, 0.3, false), 
+    //         new MoveWrist(wrist, 0),  
+    //         new moveExtension(extension, 0), 
+    //         new MoveArm(shoulder, 0), 
+    //         new Intake(intake, 0, true), 
+    //         new MoveWrist(wrist, -0.2),  
+    //         autoBuilder.fullAuto(pathGroup)); 
+    // }
+
+     //HighScore
+    //  public SequentialCommandGroup auto3(SwerveAutoBuilder autoBuilder){
+    //     List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("redConeScoreAutoBalance", 
+    //     new PathConstraints(2, 3));
+    //     return new SequentialCommandGroup( 
+    //         new MoveWrist(wrist, 0), 
+    //         new MoveArm(shoulder, 37.5), 
+    //         new moveExtension(extension, -274), 
+    //         new MoveWrist(wrist, -.8), 
+    //         new Intake(intake, 0.3, false), 
+    //         new MoveWrist(wrist, 0),  
+    //         new moveExtension(extension, 0), 
+    //         new MoveArm(shoulder, 0), 
+    //         new Intake(intake, 0, true), 
+    //         new MoveWrist(wrist, -0.2),  
+    //         autoBuilder.fullAuto(pathGroup)); 
+    // }
+
     public SequentialCommandGroup auto1(SwerveAutoBuilder autoBuilder){
         List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("coneScoreAutoBalance", 
-        new PathConstraints(2, 3));
+        new PathConstraints(1, 2));
         return new SequentialCommandGroup( 
             new MoveWrist(wrist, 0), 
             new MoveArm(shoulder, 37.5), 
@@ -52,23 +87,20 @@ public class AutoCommandHolder extends CommandBase {
             autoBuilder.fullAuto(pathGroup)); 
     }
 
-     //HighScore
-     public SequentialCommandGroup auto3(SwerveAutoBuilder autoBuilder){
-        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("redConeScoreAutoBalance", 
-        new PathConstraints(2, 3));
-        return new SequentialCommandGroup( 
-            new MoveWrist(wrist, 0), 
-            new MoveArm(shoulder, 37.5), 
-            new moveExtension(extension, -274), 
-            new MoveWrist(wrist, -.8), 
-            new Intake(intake, 0.3, false), 
-            new MoveWrist(wrist, 0),  
-            new moveExtension(extension, 0), 
-            new MoveArm(shoulder, 0), 
-            new Intake(intake, 0, true), 
-            new MoveWrist(wrist, -0.2),  
-            autoBuilder.fullAuto(pathGroup)); 
-    }
+    public SequentialCommandGroup auto3(SwerveAutoBuilder autoBuilder){
+            List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("redConeScoreAutoBalance", 
+            new PathConstraints(1, 2));
+            return new SequentialCommandGroup( 
+                new MoveWrist(wrist, 0), 
+                new MoveArm(shoulder, 37.5), 
+                new moveExtension(extension, -274), 
+                new MoveWrist(wrist, -.8), 
+                new MoveWrist(wrist, 0),  
+                new moveExtension(extension, 0), 
+                new MoveArm(shoulder, 0),
+                new MoveWrist(wrist, -0.2),  
+                autoBuilder.fullAuto(pathGroup)); 
+        }
 
     //MiddleScore
     public SequentialCommandGroup auto2(){
