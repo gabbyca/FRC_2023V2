@@ -57,11 +57,7 @@ public class AutoCommandHolder extends CommandBase {
         List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("redConeScoreAutoBalance", 
         new PathConstraints(2, 3));
         return new SequentialCommandGroup( 
-            new MoveWrist(wrist, 0), 
-            new MoveArm(shoulder, 37.5), 
-            new moveExtension(extension, -274), 
-            new MoveWrist(wrist, -.8), 
-            new Intake(intake, 0.3, false), 
+           coneHigh(), 
             new MoveWrist(wrist, 0),  
             new moveExtension(extension, 0), 
             new MoveArm(shoulder, 0), 
@@ -70,7 +66,13 @@ public class AutoCommandHolder extends CommandBase {
             autoBuilder.fullAuto(pathGroup)); 
     }
 
-   
+    public SequentialCommandGroup coneHigh() {
+        return new SequentialCommandGroup(
+                new MoveWrist(wrist, -0.2),
+                new MoveArm(shoulder, 39),
+                new moveExtension(extension, -187.3),
+                new MoveWrist(wrist, -0.7));
+    }
 
     //MiddleScore
     public SequentialCommandGroup auto2(){
