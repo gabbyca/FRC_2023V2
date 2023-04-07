@@ -73,11 +73,12 @@ public class AutoCommandHolder extends CommandBase {
     //MiddleScore
     public SequentialCommandGroup auto2(){
         return new SequentialCommandGroup(
+        new Intake(intake, 0.5, false),
         new MoveWrist(wrist, 0), 
         new MoveArm(shoulder, 31.4), 
         new moveExtension(extension, -56.8), 
-        new MoveWrist(wrist, -.7), 
-        new Intake(intake, 0.5, true), 
+        new MoveWrist(wrist, -.8), 
+        new Intake(intake, 0.3, true), 
         new MoveWrist(wrist, 0),  
         new moveExtension(extension, 0), 
         new MoveArm(shoulder, 0), 
