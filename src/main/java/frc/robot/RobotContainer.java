@@ -5,11 +5,6 @@
 package frc.robot;
 
 import java.util.HashMap;
-import java.util.List;
-
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
@@ -135,9 +130,10 @@ public class RobotContainer {
 
   public void setAutoCommands(){
     AutoCommandHolder autos = new AutoCommandHolder(ArmSubsystem, WristSubsystem, IntakeSubsystem, ExtensionSubsystem, m_robotDrive); 
-    AutoChooser.addOption("BLUE High Balance ", autos.auto1(autoBuilder));
+    AutoChooser.addOption("DONT RUN ", autos.auto1(autoBuilder));
     AutoChooser.addOption("RED High Balance ", autos.auto3(autoBuilder));
     AutoChooser.addOption("Middle Still", autos.auto2());
+    AutoChooser.addOption("Middle Drive", autos.auto4(autoBuilder));
   }
 
   public Command getAutonomousCommand() {
