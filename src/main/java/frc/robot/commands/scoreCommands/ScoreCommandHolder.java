@@ -73,7 +73,7 @@ public class ScoreCommandHolder extends CommandBase {
                 new Outtake(intake, 0.6, true),
                 new MoveWrist(wrist, -.2),
                 new moveExtension(extension, 0),
-                new MoveArm(shoulder, 0));
+                new MoveArm(shoulder, 0), new Outtake(intake, 0.1, false));
 
     }
     // release cargo 
@@ -83,14 +83,14 @@ public class ScoreCommandHolder extends CommandBase {
          return new SequentialCommandGroup(
                  new MoveArm(shoulder, 27.93),
                  new MoveWrist(wrist, -0.6),
-                 new Intake(intake, 0.5)
+                 new Intake(intake, 0.7)
                  .withInterruptBehavior(kCancelSelf));
     }
     public SequentialCommandGroup getHumanPlayerShelf() {
           return new SequentialCommandGroup(
                   new MoveArm(shoulder, 39),
-                  new MoveWrist(wrist, -.0983),
-                  new Intake(intake, 0.5)
+                  new MoveWrist(wrist, -0.9),
+                  new Intake(intake, 0.7)
                   .withInterruptBehavior(kCancelSelf), compactPosition());
     }
     public SequentialCommandGroup getGround() {
