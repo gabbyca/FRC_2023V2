@@ -27,7 +27,7 @@ public class Intake extends CommandBase{
 
     @Override 
     public boolean isFinished(){
-      return Timer.getFPGATimestamp() - startTime > 2;
+      return Timer.getFPGATimestamp() - startTime > 1;
     }
   
 }
