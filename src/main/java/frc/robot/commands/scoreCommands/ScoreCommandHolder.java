@@ -70,7 +70,7 @@ public class ScoreCommandHolder extends CommandBase {
     // release cargo
     public SequentialCommandGroup releaseScore() {
         return new SequentialCommandGroup(
-                new Outtake(intake, 0.6, true),
+                new Outtake(intake, 0.3, true),
                 new MoveWrist(wrist, -.2),
                 new moveExtension(extension, 0),
                 new MoveArm(shoulder, 0), new Outtake(intake, 0.1, false));
